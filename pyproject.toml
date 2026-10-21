@@ -1,0 +1,68 @@
+[build-system]
+requires = ["hatchling>=1.27,<2"]
+build-backend = "hatchling.build"
+
+[project]
+name = "contract-audit"
+version = "0.1.0"
+description = "Contract audit platform backend"
+requires-python = ">=3.13,<3.14"
+dependencies = [
+  "fastapi>=0.115,<1",
+  "pydantic-settings>=2.7,<3",
+  "PyYAML>=6,<7",
+  "jsonschema>=4.26,<5",
+  "python-docx>=1.1,<2",
+  "pymupdf>=1.25,<2",
+  "python-multipart>=0.0.20,<1",
+  "opentelemetry-api>=1,<2",
+  "opentelemetry-sdk>=1,<2",
+  "uvicorn[standard]>=0.34,<1",
+  "pyjwt[crypto]>=2.12,<3",
+]
+
+[project.optional-dependencies]
+ai = [
+  "agentscope>=2,<3",
+  "pageindex>=0.2.18,<0.3",
+  "pypdf>=3.9,<7",
+]
+pageindex = ["pageindex>=0.2.18,<0.3", "pypdf>=3.9,<7"]
+telemetry = ["opentelemetry-exporter-otlp>=1,<2"]
+database = [
+  "alembic>=1.14,<2",
+  "psycopg[binary,pool]>=3.2,<4",
+  "sqlalchemy>=2,<3",
+]
+storage = [
+  "boto3>=1.37,<2",
+]
+
+[dependency-groups]
+dev = [
+  "httpx>=0.28,<1",
+  "mypy>=1.15,<2",
+  "pytest>=8.3,<10",
+  "ruff>=0.11,<1",
+  "types-jsonschema>=4.26,<5",
+  "types-PyYAML>=6,<7",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/contract_app"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+extend-exclude = ["skills/refs"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+files = ["src/contract_app"]

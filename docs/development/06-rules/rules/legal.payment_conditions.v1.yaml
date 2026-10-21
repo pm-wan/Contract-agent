@@ -1,0 +1,183 @@
+rule_id: legal.payment_conditions
+version: 1.0.0
+domain: legal
+title: 付款条件检查
+status: approved_for_development
+applicability:
+  contract_types: [service, software_purchase]
+  party_roles: [customer]
+  jurisdictions: [CN-mainland]
+  expression:
+    all:
+      - {eq: [contract.party_role, customer]}
+      - {in: [contract.contract_type, [service, software_purchase]]}
+dependencies:
+  facts:
+    - contract.party_role
+    - contract.contract_type
+    - contract.jurisdiction
+    - contract.total_amount
+  checks:
+    - legal.price.definition
+normative_refs: []
+enterprise_position_refs:
+  - enterprise.payment-policy/mvp-v1
+slots:
+  - slot_id: payment_clause_present
+    title: 是否存在付款约定
+    slot_type: evidence
+    value_schema: {type: boolean}
+    required: true
+    required_when: true
+    critical: true
+    dependencies: []
+    accepted_fact_types: []
+    evidence_policy:
+      kinds: [document_span, absence_evidence]
+      quote_required: true
+    validation_rules:
+      - absence_requires_search_scope
+    allowed_tools: [document.locate_clause]
+    allowed_terminal_states: [filled, needs_material, undetermined, human_review]
+    invalidation_dependencies: [document_version, parser_version]
+  - slot_id: payment_schedule
+    title: 付款阶段、比例或金额
+    slot_type: fact
+    value_schema:
+      type: array
+      maxItems: 500
+      items:
+        type: object
+        additionalProperties: false
+        required: [trigger, amount_type]
+        properties:
+          trigger: {type: string}
+          amount_type: {enum: [percentage, fixed, residual]}
+          percentage: {type: [string, "null"], maxLength: 128, pattern: "^[0-9]+(\\.[0-9]+)?$"}
+          amount: {type: [string, "null"], maxLength: 128, pattern: "^[0-9]+(\\.[0-9]+)?$"}
+          currency: {type: [string, "null"], pattern: "^[A-Z]{3}$"}
+    required: true
+    required_when: {eq: [payment_clause_present, true]}
+    critical: true
+    dependencies: [payment_clause_present]
+    accepted_fact_types: [contract.payment_schedule]
+    evidence_policy:
+      kinds: [document_span]
+      quote_required: true
+    validation_rules:
+      - percentages_must_be_decimal_strings
+      - fixed_amount_requires_currency
+    allowed_tools: [document.locate_clause, calculation.sum_decimal]
+    allowed_terminal_states: [filled, needs_material, conflicted, undetermined, human_review]
+    invalidation_dependencies: [document_version, contract_total_amount]
+  - slot_id: payment_triggers
+    title: 付款触发条件
+    slot_type: fact
+    value_schema:
+      type: array
+      items:
+        type: object
+        additionalProperties: false
+        required: [stage, conditions]
+        properties:
+          stage: {type: string}
+          conditions: {type: array, minItems: 1, items: {type: string}}
+          invoice_required: {type: [boolean, "null"]}
+          acceptance_required: {type: [boolean, "null"]}
+    required: true
+    required_when: {eq: [payment_clause_present, true]}
+    critical: true
+    dependencies: [payment_clause_present, payment_schedule]
+    accepted_fact_types: [contract.payment_trigger]
+    evidence_policy:
+      kinds: [document_span]
+      quote_required: true
+    validation_rules: []
+    allowed_tools: [document.locate_clause]
+    allowed_terminal_states: [filled, needs_material, conflicted, undetermined, human_review]
+    invalidation_dependencies: [document_version]
+  - slot_id: prepayment_ratio
+    title: 验收或可验证交付前的付款比例
+    slot_type: fact
+    value_schema:
+      type: [string, "null"]
+      pattern: "^(0(\\.[0-9]+)?|1(\\.0+)?)$"
+    required: true
+    required_when: {eq: [payment_clause_present, true]}
+    critical: true
+    dependencies: [payment_schedule, payment_triggers]
+    accepted_fact_types: [contract.prepayment_ratio]
+    evidence_policy:
+      kinds: [document_span, calculation]
+      quote_required: true
+    validation_rules:
+      - derive_with_decimal_executor_only
+    allowed_tools: [calculation.payment_ratio]
+    allowed_terminal_states: [filled, needs_material, conflicted, undetermined, human_review]
+    invalidation_dependencies: [document_version, contract_total_amount]
+  - slot_id: payment_risk_judgment
+    title: 付款条件判断
+    slot_type: judgment
+    value_schema:
+      type: object
+      additionalProperties: false
+      required: [outcome, reasons]
+      properties:
+        outcome: {enum: [conform, deviation, adverse, undetermined, human_review]}
+        reasons: {type: array, minItems: 1, items: {type: string}}
+    required: true
+    required_when: true
+    critical: true
+    dependencies: [payment_clause_present, payment_schedule, payment_triggers, prepayment_ratio]
+    accepted_fact_types: []
+    evidence_policy:
+      kinds: [document_span, calculation, human_confirmation]
+      quote_required: true
+    validation_rules:
+      - judgment_must_follow_minimum_policy
+    allowed_tools: []
+    allowed_terminal_states: [filled, needs_material, conflicted, undetermined, human_review]
+    invalidation_dependencies: [document_version, enterprise_position_version, fact_set_snapshot]
+execution:
+  deterministic_steps:
+    - verify_input_snapshot
+    - locate_payment_candidates
+    - calculate_payment_totals
+    - apply_minimum_policy
+    - validate_evidence
+  semantic_tasks:
+    - extract_payment_schedule
+    - classify_payment_triggers
+  tool_allowlist:
+    - document.locate_clause
+    - calculation.sum_decimal
+    - calculation.payment_ratio
+  max_rounds: 3
+  timeout_seconds: 120
+  token_budget: 12000
+risk_policy:
+  minimum_judgment_rules:
+    - when: {eq: [payment_clause_present, false]}
+      judgment: needs_material
+      reason: 未定位到付款约定且缺少充分 absence evidence 时不得通过
+    - when: {eq: [payment_triggers.acceptance_required, false]}
+      judgment: issue_found
+      severity: high
+      reason: 付款早于可验证验收，至少形成问题；是否允许由企业政策和审批决定
+  human_review_when:
+    - payment_schedule_conflicted
+    - payment_total_not_reconcilable
+    - enterprise_threshold_missing
+evidence_policy:
+  direct_evidence_required: true
+  absence_evidence:
+    required_fields: [searched_sections, parser_coverage, query_terms]
+  quote_hash_required: true
+invalidation_dependencies:
+  - document_version
+  - parser_version
+  - contract_total_amount
+  - fact_set_snapshot
+  - enterprise_position_version
+eval_suite_refs:
+  - legal.payment_conditions.seed@1.0.0

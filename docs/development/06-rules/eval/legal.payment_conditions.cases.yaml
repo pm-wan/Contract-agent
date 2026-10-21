@@ -1,0 +1,127 @@
+suite_id: legal.payment_conditions.seed
+version: 1.0.0
+rule_ref: legal.payment_conditions@1.0.0
+status: approved_for_development
+notes: 合同正文使用合成文本；slot_values 是未获法律/业务批准的开发期结构样例，不构成金标或规则解释；固定 document fixture、字符坐标和哈希仅供工程回归。
+cases:
+  - case_id: payment-positive-001
+    kind: positive
+    input_summary: 合同约定验收合格并收到合规发票后支付全部价款。
+    fixtures:
+      - fixture_id: main
+        path: payment-positive-001.txt
+        sha256: d819c5562b2f4d156c32a13a6a850ab214b5c9a8649376407ed30cf2debee944
+        format: normalized_text_v1
+    expected:
+      applicability: applicable
+      judgment: passed
+      required_slots: [payment_clause_present, payment_schedule, payment_triggers, prepayment_ratio, payment_risk_judgment]
+      slot_values:
+        payment_clause_present:
+          state: filled
+          value: true
+          evidence_spans:
+            - {fixture_id: main, page: 1, start_offset: 5, end_offset: 41, quote_sha256: b5a4ee114de57c0bae6fb00ff8655acbbb522933d891e8a40b4285254e1ec320}
+        payment_schedule:
+          state: filled
+          value:
+            - {trigger: 验收, amount_type: percentage, percentage: "100"}
+          evidence_spans:
+            - {fixture_id: main, page: 1, start_offset: 5, end_offset: 41, quote_sha256: b5a4ee114de57c0bae6fb00ff8655acbbb522933d891e8a40b4285254e1ec320}
+        payment_triggers:
+          state: filled
+          value:
+            - {stage: 付款条件, conditions: [验收合格, 收到合规发票], acceptance_required: true, invoice_required: true}
+          evidence_spans:
+            - {fixture_id: main, page: 1, start_offset: 5, end_offset: 41, quote_sha256: b5a4ee114de57c0bae6fb00ff8655acbbb522933d891e8a40b4285254e1ec320}
+      direct_evidence_required: true
+      human_task: null
+      evidence_spans:
+        - {fixture_id: main, page: 1, start_offset: 5, end_offset: 41, quote_sha256: b5a4ee114de57c0bae6fb00ff8655acbbb522933d891e8a40b4285254e1ec320}
+  - case_id: payment-adverse-001
+    kind: negative
+    input_summary: 签约后三日内支付全部价款，未约定交付、验收或退款保障。
+    fixtures:
+      - fixture_id: main
+        path: payment-adverse-001.txt
+        sha256: 86ddff74de61397a195f359a65e37bc028378fd34f9304f32f83b6cb2c741598
+        format: normalized_text_v1
+    expected:
+      applicability: applicable
+      judgment: issue_found
+      minimum_severity: high
+      prepayment_ratio: "1.0"
+      slot_values:
+        payment_clause_present:
+          state: filled
+          value: true
+          evidence_spans:
+            - {fixture_id: main, page: 1, start_offset: 5, end_offset: 26, quote_sha256: 5d35fcbd47264ebf6c2161aa40a6c80806b1c1b871d4f509da8f05457a59d672}
+        payment_schedule:
+          state: filled
+          value:
+            - {trigger: 签约后三日内, amount_type: percentage, percentage: "100"}
+          evidence_spans:
+            - {fixture_id: main, page: 1, start_offset: 5, end_offset: 26, quote_sha256: 5d35fcbd47264ebf6c2161aa40a6c80806b1c1b871d4f509da8f05457a59d672}
+        payment_triggers:
+          state: filled
+          value:
+            - {stage: 签约后三日内, conditions: [合同签署后三日内]}
+          evidence_spans:
+            - {fixture_id: main, page: 1, start_offset: 5, end_offset: 26, quote_sha256: 5d35fcbd47264ebf6c2161aa40a6c80806b1c1b871d4f509da8f05457a59d672}
+      direct_evidence_required: true
+      human_task: approval
+      evidence_spans:
+        - {fixture_id: main, page: 1, start_offset: 5, end_offset: 26, quote_sha256: 5d35fcbd47264ebf6c2161aa40a6c80806b1c1b871d4f509da8f05457a59d672}
+  - case_id: payment-missing-001
+    kind: missing_material
+    input_summary: 正文称付款安排见附件二，但附件二未提供。
+    fixtures:
+      - fixture_id: main
+        path: payment-missing-001.txt
+        sha256: b8bf0f38d2775f9c8c7f606d6cddc05e008a782b6dfdc5d70b22da409d47f773
+        format: normalized_text_v1
+    expected:
+      applicability: applicable
+      judgment: needs_material
+      slot_status:
+        payment_schedule: needs_material
+      slot_values:
+        payment_schedule:
+          state: needs_material
+          value: null
+          evidence_spans:
+            - {fixture_id: main, page: 1, start_offset: 5, end_offset: 27, quote_sha256: e10b098e83aa0caa6046183e3b0481e63dbce016ff3c02efa0fb73774befd833}
+      human_task: material
+      forbidden_judgments: [passed]
+      evidence_spans:
+        - {fixture_id: main, page: 1, start_offset: 5, end_offset: 27, quote_sha256: e10b098e83aa0caa6046183e3b0481e63dbce016ff3c02efa0fb73774befd833}
+  - case_id: payment-conflict-001
+    kind: conflict
+    input_summary: 正文约定验收后付款，订单约定签约预付且文件优先级不明确。
+    fixtures:
+      - fixture_id: main
+        path: payment-conflict-main.txt
+        sha256: a05eff308fac9cb525c739ae4787cd9aa6ab476b2578d2367c0da3317ca44ee3
+        format: normalized_text_v1
+      - fixture_id: order
+        path: payment-conflict-order.txt
+        sha256: 10a0daece3f763035955365a0b9a757682ffe9dc4a9c7a706ca9311a0be1872a
+        format: normalized_text_v1
+    expected:
+      applicability: applicable
+      judgment: human_review
+      slot_status:
+        payment_triggers: conflicted
+      slot_values:
+        payment_triggers:
+          state: conflicted
+          value: null
+          evidence_spans:
+            - {fixture_id: main, page: 1, start_offset: 5, end_offset: 29, quote_sha256: 5781d3dcf4214f4721b63b44d81b890cd467d2af338202663d4d55acaefd8eb9}
+            - {fixture_id: order, page: 1, start_offset: 5, end_offset: 26, quote_sha256: dd03b9e2edd38bedc3f947a3262196111ec68f5e7626f5056d3e66763b3f45b2}
+      human_task: legal_review
+      forbidden_judgments: [passed]
+      evidence_spans:
+        - {fixture_id: main, page: 1, start_offset: 5, end_offset: 29, quote_sha256: 5781d3dcf4214f4721b63b44d81b890cd467d2af338202663d4d55acaefd8eb9}
+        - {fixture_id: order, page: 1, start_offset: 5, end_offset: 26, quote_sha256: dd03b9e2edd38bedc3f947a3262196111ec68f5e7626f5056d3e66763b3f45b2}

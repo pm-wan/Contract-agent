@@ -1,0 +1,1 @@
+The signed price clause states a total of CNY 1000, including tax. The model output for this case contains the amount candidate but no source citation, page, or quote binding.

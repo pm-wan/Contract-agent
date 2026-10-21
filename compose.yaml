@@ -1,0 +1,166 @@
+services:
+  postgres:
+    image: postgres:18-alpine@sha256:77f585114c32fbca283dc835b0596f4e52b51b4c6662d7810b2f4084f60a1873
+    environment:
+      POSTGRES_DB: contract_audit
+      POSTGRES_USER: contract_admin
+      POSTGRES_PASSWORD: local-dev-only
+    ports:
+      - "127.0.0.1:5438:5432"
+    volumes:
+      - contract_audit_pg:/var/lib/postgresql
+      - ./infra/postgres/init.sql:/docker-entrypoint-initdb.d/01-runtime-role.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U contract_admin -d contract_audit"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  api:
+    profiles: [dev-app]
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      APP_ENV: development
+      CONTRACT_REVIEW_EXECUTION_ENABLED: ${CONTRACT_REVIEW_EXECUTION_ENABLED:-false}
+      CONTRACT_REVIEW_MODEL: ${CONTRACT_REVIEW_MODEL:-}
+      CONTRACT_REVIEW_MODEL_BASE_URL: ${CONTRACT_REVIEW_MODEL_BASE_URL:-}
+      LEGAL_SEARCH_API_KEY: ${LEGAL_SEARCH_API_KEY:-}
+      LEGAL_SEARCH_PROVIDER: ${LEGAL_SEARCH_PROVIDER:-auto}
+      AUTH_TENANT_ID: ${AUTH_TENANT_ID:-00000000-0000-4000-8000-000000000001}
+      AUTH_BOOTSTRAP_ACTOR_ID: 00000000-0000-4000-8000-000000000002
+      DATABASE_URL: postgresql://contract_runtime:local-dev-only@postgres:5432/contract_audit
+      OBJECT_STORE_BACKEND: local
+      OBJECT_STORE_DIR: /var/lib/contract-audit/objects
+    command:
+      - sh
+      - -ec
+      - >-
+        DATABASE_URL=postgresql://contract_admin:local-dev-only@postgres:5432/contract_audit
+        uv run alembic upgrade head &&
+        exec uv run uvicorn contract_app.api:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8001:8000"
+    volumes:
+      - contract_audit_objects:/var/lib/contract-audit/objects
+    healthcheck:
+      test:
+        - CMD
+        - python
+        - -c
+        - "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/live', timeout=2)"
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+  parse-worker:
+    profiles: [container-parse]
+    build:
+      context: .
+      dockerfile: Dockerfile.parse
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://contract_runtime:local-dev-only@postgres:5432/contract_audit
+      DOCUMENT_PARSE_TENANT_ID: 00000000-0000-4000-8000-000000000001
+      OBJECT_STORE_BACKEND: local
+      OBJECT_STORE_DIR: /var/lib/contract-audit/objects
+    command: ["uv", "run", "python", "-m", "contract_app.documents.parse_worker"]
+    volumes:
+      - contract_audit_objects:/var/lib/contract-audit/objects
+    restart: unless-stopped
+
+  pageindex-worker:
+    profiles: [pageindex]
+    build:
+      context: .
+      dockerfile: Dockerfile.pageindex
+    depends_on:
+      api:
+        condition: service_healthy
+    env_file:
+      - path: ${PAGEINDEX_ENV_FILE:-.env.pageindex}
+        required: true
+    environment:
+      DATABASE_URL: postgresql://contract_runtime:local-dev-only@postgres:5432/contract_audit
+      DOCUMENT_INDEX_TENANT_ID: 00000000-0000-4000-8000-000000000001
+      OBJECT_STORE_BACKEND: local
+      OBJECT_STORE_DIR: /var/lib/contract-audit/objects
+      PAGEINDEX_STORAGE_PATH: /var/lib/contract-audit/pageindex
+    command:
+      - sh
+      - -ec
+      - >-
+        test -n "$${PAGEINDEX_MODEL:-}" || { echo 'PAGEINDEX_MODEL must be set in PAGEINDEX_ENV_FILE' >&2; exit 64; };
+        test -n "$${OPENAI_API_KEY:-}" || { echo 'OPENAI_API_KEY must be set in PAGEINDEX_ENV_FILE' >&2; exit 64; };
+        exec uv run python -m contract_app.documents.index_worker
+    volumes:
+      - contract_audit_objects:/var/lib/contract-audit/objects
+      - contract_audit_pageindex:/var/lib/contract-audit/pageindex
+    restart: unless-stopped
+
+  contract-review-worker:
+    profiles: [contract-review]
+    build:
+      context: .
+      dockerfile: Dockerfile.review
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgresql://contract_runtime:local-dev-only@postgres:5432/contract_audit
+      CONTRACT_REVIEW_TENANT_ID: ${CONTRACT_REVIEW_TENANT_ID:-00000000-0000-4000-8000-000000000001}
+      CONTRACT_REVIEW_MODEL: ${CONTRACT_REVIEW_MODEL:-deepseek-flash}
+      CONTRACT_REVIEW_MODEL_API_KEY: ${CONTRACT_REVIEW_MODEL_API_KEY:?set CONTRACT_REVIEW_MODEL_API_KEY in .env}
+      CONTRACT_REVIEW_MODEL_BASE_URL: ${CONTRACT_REVIEW_MODEL_BASE_URL:-https://api.deepseek.com}
+      LEGAL_SEARCH_API_KEY: ${LEGAL_SEARCH_API_KEY:-}
+      LEGAL_SEARCH_PROVIDER: ${LEGAL_SEARCH_PROVIDER:-auto}
+      PAGEINDEX_MODEL: ${PAGEINDEX_MODEL:-deepseek-flash}
+      PAGEINDEX_STORAGE_PATH: /var/lib/contract-audit/pageindex
+      PYTHONPATH: /workspace/src
+      OBJECT_STORE_BACKEND: local
+      OBJECT_STORE_DIR: /var/lib/contract-audit/objects
+    command:
+      - sh
+      - -ec
+      - >-
+        test -n "$${CONTRACT_REVIEW_MODEL:-}" || { echo 'CONTRACT_REVIEW_MODEL must be set in .env' >&2; exit 64; };
+        exec uv run --no-sync --extra ai python -m contract_app.workflow.contract_review
+    volumes:
+      - ./src:/workspace/src:ro
+      - contract_audit_objects:/var/lib/contract-audit/objects
+      - contract_audit_pageindex:/var/lib/contract-audit/pageindex
+    restart: unless-stopped
+
+  web:
+    profiles: [dev-app]
+    build:
+      context: ./web
+      dockerfile: Dockerfile.dev
+    depends_on:
+      api:
+        condition: service_healthy
+    environment:
+      API_PROXY_TARGET: http://api:8000
+    command: ["sh", "-ec", "pnpm install --frozen-lockfile && exec pnpm exec vite --host 0.0.0.0"]
+    ports:
+      - "5174:5173"
+    volumes:
+      - ./web:/workspace/web
+      - contract_audit_web_node_modules:/workspace/web/node_modules
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:5173/"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  contract_audit_pg:
+  contract_audit_objects:
+  contract_audit_web_node_modules:
+  contract_audit_pageindex:

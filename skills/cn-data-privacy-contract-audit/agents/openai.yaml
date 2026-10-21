@@ -1,0 +1,4 @@
+interface:
+  display_name: "中国数据与隐私合同审计"
+  short_description: "面向中国大陆数据处理、共享与安全协议的全流程证据化审计"
+  default_prompt: "使用 $cn-data-privacy-contract-audit 审查这份数据或隐私协议，输出可追溯的处理链与合规风险。"

@@ -1,0 +1,134 @@
+rule_id: legal.price.definition
+version: 1.0.0
+domain: legal
+knowledge_domain: legal
+basis_kind: contract_price_basis
+title: 合同价款口径检查
+status: approved_for_development
+applicability:
+  contract_types: [service, software_purchase]
+  party_roles: [customer]
+  jurisdictions: [CN-mainland]
+  expression:
+    all:
+      - {eq: [contract.party_role, customer]}
+      - {in: [contract.contract_type, [service, software_purchase]]}
+dependencies:
+  facts: [contract.party_role, contract.contract_type, contract.jurisdiction, contract.total_amount]
+  checks: []
+normative_refs: []
+enterprise_position_refs: [enterprise.payment-policy/mvp-v1]
+applicable_time_basis: signing_date
+review_owner_role: legal_reviewer
+slots:
+  - slot_id: price_basis
+    title: 含税价、未税价、税额和币种
+    slot_type: fact
+    value_schema:
+      type: object
+      additionalProperties: false
+      required: [tax_inclusive_total, tax_exclusive_total, currency]
+      properties:
+        tax_inclusive_total: {type: [string, "null"]}
+        tax_exclusive_total: {type: [string, "null"]}
+        tax_amount: {type: [string, "null"]}
+        tax_rate: {type: [string, "null"]}
+        currency: {type: string, pattern: "^[A-Z]{3}$"}
+    required: true
+    required_when: true
+    critical: true
+    dependencies: []
+    accepted_fact_types: [contract.price_basis]
+    evidence_policy: {kinds: [document_span, calculation], quote_required: true}
+    validation_rules: []
+    allowed_tools: [document.locate_clause, calculation.sum_decimal]
+    allowed_terminal_states: [filled, needs_material, conflicted, undetermined, human_review]
+    invalidation_dependencies: [document_version, contract_total_amount]
+  - slot_id: price_sources
+    title: 正文、价款表、附件和补充协议中的金额来源
+    slot_type: fact
+    value_schema:
+      type: array
+      maxItems: 500
+      items:
+        type: object
+        additionalProperties: false
+        required: [source_type, amount]
+        properties:
+          source_type: {enum: [contract_body, price_table, attachment, supplementary_agreement]}
+          amount: {type: string}
+          currency: {type: string, pattern: "^[A-Z]{3}$"}
+          priority: {enum: [primary, secondary]}
+    required: true
+    required_when: true
+    critical: true
+    dependencies: []
+    accepted_fact_types: [contract.price_source]
+    evidence_policy: {kinds: [document_span], quote_required: true}
+    validation_rules: []
+    allowed_tools: [document.locate_clause]
+    allowed_terminal_states: [filled, needs_material, conflicted, undetermined, human_review]
+    invalidation_dependencies: [document_version]
+  - slot_id: payment_basis
+    title: 付款比例分母、固定金额和阶段余额
+    slot_type: fact
+    value_schema:
+      type: array
+      maxItems: 500
+      items:
+        type: object
+        additionalProperties: false
+        required: [stage, denominator]
+        properties:
+          stage: {type: string}
+          denominator: {enum: [contract_total, tax_exclusive_total, stage_amount, unspecified]}
+          percentage: {type: [string, "null"]}
+          fixed_amount: {type: [string, "null"]}
+          residual: {type: boolean}
+          currency: {type: string, pattern: "^[A-Z]{3}$"}
+    required: true
+    required_when: true
+    critical: true
+    dependencies: []
+    accepted_fact_types: [contract.payment_basis]
+    evidence_policy: {kinds: [document_span, calculation], quote_required: true}
+    validation_rules: []
+    allowed_tools: [document.locate_clause, calculation.sum_decimal]
+    allowed_terminal_states: [filled, needs_material, conflicted, undetermined, human_review]
+    invalidation_dependencies: [document_version, contract_total_amount]
+  - slot_id: price_basis_judgment
+    title: 合同价款口径检查结论
+    slot_type: judgment
+    value_schema:
+      type: object
+      additionalProperties: false
+      required: [outcome, reasons]
+      properties:
+        outcome: {enum: [conform, deviation, undetermined, human_review]}
+        reasons: {type: array, minItems: 1, items: {type: string}}
+    required: true
+    required_when: true
+    critical: true
+    dependencies: [price_basis, price_sources, payment_basis]
+    accepted_fact_types: []
+    evidence_policy: {kinds: [document_span, calculation, human_confirmation], quote_required: true}
+    validation_rules: []
+    allowed_tools: []
+    allowed_terminal_states: [filled, needs_material, conflicted, undetermined, human_review]
+    invalidation_dependencies: [document_version, enterprise_position_version, fact_set_snapshot]
+execution:
+  deterministic_steps: [verify_input_snapshot, locate_payment_candidates, calculate_payment_totals, validate_evidence]
+  semantic_tasks: []
+  tool_allowlist: [document.locate_clause, calculation.sum_decimal]
+  max_rounds: 3
+  timeout_seconds: 120
+  token_budget: 12000
+risk_policy:
+  minimum_judgment_rules: []
+  human_review_when: [price_amount_missing, price_source_conflicted, payment_denominator_unspecified, fixed_percentage_mismatch]
+evidence_policy:
+  direct_evidence_required: true
+  absence_evidence: {required_fields: [searched_sections, parser_coverage, query_terms]}
+  quote_hash_required: true
+invalidation_dependencies: [document_version, parser_version, contract_total_amount, fact_set_snapshot, enterprise_position_version]
+eval_suite_refs: [legal.price.definition.dev@1.0.0]

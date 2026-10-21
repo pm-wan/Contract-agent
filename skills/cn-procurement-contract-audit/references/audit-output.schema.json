@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contract-agent.internal/schemas/audit-skill-output-1.0.0.json",
+  "title": "AuditSkillOutput",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "skill_name",
+    "skill_version",
+    "mode",
+    "review_context",
+    "coverage",
+    "evidence",
+    "check_results",
+    "cross_clause_findings",
+    "human_tasks",
+    "limitations",
+    "summary"
+  ],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "skill_name": {"const": "cn-procurement-contract-audit"},
+    "skill_version": {"type": "string", "minLength": 1},
+    "mode": {
+      "enum": ["full_review", "quick_triage", "focused_check", "version_compare", "amendment_trace", "redline_draft", "escalation_draft", "stakeholder_summary"]
+    },
+    "review_context": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["jurisdiction", "party_role", "contract_type", "document_refs"],
+      "properties": {
+        "jurisdiction": {"type": "string"},
+        "party_role": {"type": "string"},
+        "contract_type": {"type": "string"},
+        "document_refs": {"type": "array", "items": {"type": "string"}, "minItems": 1}
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["planned_rules", "completed_rules", "waiting_material", "waiting_human", "failed_rules"],
+      "properties": {
+        "planned_rules": {"type": "integer", "minimum": 0},
+        "completed_rules": {"type": "integer", "minimum": 0},
+        "waiting_material": {"type": "integer", "minimum": 0},
+        "waiting_human": {"type": "integer", "minimum": 0},
+        "failed_rules": {"type": "integer", "minimum": 0},
+        "locatable_evidence_count": {"type": "integer", "minimum": 0},
+        "parse_warnings": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "evidence": {"type": "array", "items": {"$ref": "#/$defs/evidence"}},
+    "check_results": {"type": "array", "items": {"$ref": "#/$defs/checkResult"}},
+    "cross_clause_findings": {"type": "array", "items": {"$ref": "#/$defs/finding"}},
+    "human_tasks": {"type": "array", "items": {"$ref": "#/$defs/humanTask"}},
+    "limitations": {"type": "array", "items": {"type": "string"}},
+    "summary": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["minimum_outcome", "priority_actions"],
+      "properties": {
+        "minimum_outcome": {"enum": ["cannot_auto_pass", "ready_for_human_decision"]},
+        "priority_actions": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  },
+  "$defs": {
+    "evidence": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["evidence_id", "kind", "support"],
+      "properties": {
+        "evidence_id": {"type": "string", "minLength": 1},
+        "kind": {"enum": ["document_span", "source_record", "calculation", "normative_reference", "human_confirmation", "absence_evidence"]},
+        "support": {"enum": ["direct", "corroborating", "context", "contradicting"]}
+      }
+    },
+    "slotCandidate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["slot_id", "slot_type", "status", "value", "evidence_refs", "validation_notes"],
+      "properties": {
+        "slot_id": {"type": "string", "minLength": 1},
+        "slot_type": {"enum": ["prerequisite", "fact", "evidence", "judgment", "action"]},
+        "status": {"enum": ["filled", "not_found", "not_applicable", "needs_material", "data_unavailable", "conflicted", "undetermined", "human_review"]},
+        "value": {},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "confidence": {"type": "number", "minimum": 0, "maximum": 1},
+        "validation_notes": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "proposal": {
+      "type": ["object", "null"],
+      "additionalProperties": false,
+      "required": ["status", "objective", "replacement_text", "variables_requiring_confirmation"],
+      "properties": {
+        "status": {"const": "suggested"},
+        "objective": {"type": "string"},
+        "replacement_text": {"type": "string"},
+        "variables_requiring_confirmation": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "checkResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["rule_id", "applicability", "execution_status", "judgment_status", "severity", "finding_type", "reasoning_summary", "slot_candidates", "evidence_refs", "normative_reference_refs", "enterprise_position_refs", "proposal", "human_task_refs", "limitations"],
+      "properties": {
+        "rule_id": {"type": "string", "pattern": "^legal\\."},
+        "applicability": {"enum": ["applicable", "not_applicable", "undetermined"]},
+        "execution_status": {"enum": ["completed", "waiting_material", "waiting_data", "waiting_human", "failed"]},
+        "judgment_status": {"enum": ["conform", "deviation", "adverse", "missing", "conflicted", "undetermined", "human_review", "not_applicable"]},
+        "severity": {"enum": ["critical", "high", "medium", "low", "info", "undetermined"]},
+        "finding_type": {"enum": ["adverse_clause", "missing_protection", "inconsistency", "material_gap", "enterprise_deviation", "favorable_term", "no_issue_found", "out_of_scope_observation"]},
+        "reasoning_summary": {"type": "string"},
+        "slot_candidates": {"type": "array", "items": {"$ref": "#/$defs/slotCandidate"}},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "normative_reference_refs": {"type": "array", "items": {"type": "string"}},
+        "enterprise_position_refs": {"type": "array", "items": {"type": "string"}},
+        "proposal": {"$ref": "#/$defs/proposal"},
+        "human_task_refs": {"type": "array", "items": {"type": "string"}},
+        "limitations": {"type": "array", "items": {"type": "string"}}
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["finding_id", "related_rule_ids", "evidence_refs", "summary"],
+      "properties": {
+        "finding_id": {"type": "string"},
+        "related_rule_ids": {"type": "array", "items": {"type": "string"}, "minItems": 2},
+        "evidence_refs": {"type": "array", "items": {"type": "string"}},
+        "summary": {"type": "string"}
+      }
+    },
+    "humanTask": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["task_id", "type", "title", "reason", "required_role", "related_rule_ids", "required_inputs", "suggested_options"],
+      "properties": {
+        "task_id": {"type": "string"},
+        "type": {"enum": ["material", "fact_review", "legal_review", "approval"]},
+        "title": {"type": "string"},
+        "reason": {"type": "string"},
+        "required_role": {"type": "string"},
+        "related_rule_ids": {"type": "array", "items": {"type": "string"}},
+        "required_inputs": {"type": "array", "items": {"type": "string"}},
+        "suggested_options": {"type": "array", "items": {"type": "object"}}
+      }
+    }
+  }
+}

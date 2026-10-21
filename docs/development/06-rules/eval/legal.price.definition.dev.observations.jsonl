@@ -1,0 +1,10 @@
+{"case_id":"price-consistent-001","judgment":"undetermined","human_task":null,"slot_status":{"price_basis":"filled","price_sources":"filled","payment_basis":"filled"}}
+{"case_id":"price-tax-conflict-001","judgment":"human_review","human_task":"finance_review"}
+{"case_id":"price-fixed-percentage-conflict-001","judgment":"human_review","human_task":"finance_review"}
+{"case_id":"price-missing-denominator-001","judgment":"needs_material","human_task":"material"}
+{"case_id":"price-source-conflict-001","judgment":"human_review","human_task":"legal_review"}
+{"case_id":"price-multicurrency-001","judgment":"human_review","human_task":"finance_review"}
+{"case_id":"price-repeated-stage-001","judgment":"human_review","human_task":"finance_review"}
+{"case_id":"price-no-amount-001","judgment":"needs_material","human_task":"material"}
+{"case_id":"price-injection-001","judgment":"human_review","human_task":"legal_review"}
+{"case_id":"price-evidence-missing-001","judgment":"human_review","human_task":"legal_review","evidence":[]}

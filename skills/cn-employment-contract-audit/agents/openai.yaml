@@ -1,0 +1,4 @@
+interface:
+  display_name: "中国劳动人事合同审计"
+  short_description: "面向中国大陆企业劳动人事合同的全流程证据化审计与风险复核"
+  default_prompt: "使用 $cn-employment-contract-audit 完整审查这份劳动或人事协议，输出可追溯结果与修订建议。"

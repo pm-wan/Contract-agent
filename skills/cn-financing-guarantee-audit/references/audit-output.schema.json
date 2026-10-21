@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contract-agent.internal/schemas/financing-guarantee-audit-output-1.0.0.json",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "skill_name", "mode", "review_context", "obligation_graph", "evidence", "check_results", "calculations", "human_tasks", "limitations", "summary"],
+  "properties": {
+    "schema_version": {"const": "1.0.0"},
+    "skill_name": {"const": "cn-financing-guarantee-audit"},
+    "mode": {"enum": ["full_review", "borrower_review", "lender_review", "guarantor_review", "security_package_review", "covenant_review", "default_review", "amendment_waiver_review", "version_compare", "redline_draft"]},
+    "review_context": {"type": "object"},
+    "obligation_graph": {"type": "object"},
+    "evidence": {"type": "array", "items": {"$ref": "#/$defs/evidence"}},
+    "check_results": {"type": "array", "items": {"$ref": "#/$defs/result"}},
+    "calculations": {"type": "array", "items": {"type": "object"}},
+    "human_tasks": {"type": "array", "items": {"$ref": "#/$defs/task"}},
+    "limitations": {"type": "array", "items": {"type": "string"}},
+    "summary": {"$ref": "#/$defs/summary"}
+  },
+  "$defs": {
+    "evidence": {"type": "object", "required": ["evidence_id", "kind", "support"], "properties": {"evidence_id": {"type": "string"}, "kind": {"enum": ["document_span", "source_record", "calculation", "normative_reference", "human_confirmation", "absence_evidence"]}, "support": {"enum": ["direct", "corroborating", "context", "contradicting"]}}, "additionalProperties": true},
+    "result": {"type": "object", "required": ["rule_id", "judgment_status", "severity", "fact_summary", "evidence_refs", "human_task_refs"], "properties": {"rule_id": {"type": "string", "pattern": "^finance\\."}, "judgment_status": {"enum": ["conform", "deviation", "adverse", "authorization_gap", "security_gap", "perfection_gap", "priority_uncertain", "conflicted", "undetermined", "human_review", "not_applicable"]}, "severity": {"enum": ["critical", "high", "medium", "low", "info", "undetermined"]}, "fact_summary": {"type": "string"}, "evidence_refs": {"type": "array", "items": {"type": "string"}}, "human_task_refs": {"type": "array", "items": {"type": "string"}}}, "additionalProperties": true},
+    "task": {"type": "object", "required": ["task_id", "type", "required_role", "reason"], "properties": {"task_id": {"type": "string"}, "type": {"enum": ["material", "balance_confirmation", "calculation_review", "collateral_review", "finance_review", "legal_review", "approval"]}, "required_role": {"type": "string"}, "reason": {"type": "string"}}, "additionalProperties": true},
+    "summary": {"type": "object", "required": ["minimum_outcome", "priority_actions"], "properties": {"minimum_outcome": {"enum": ["cannot_auto_pass", "ready_for_human_decision"]}, "priority_actions": {"type": "array", "items": {"type": "string"}}}, "additionalProperties": true}
+  }
+}

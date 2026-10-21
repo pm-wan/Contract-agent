@@ -1,0 +1,1872 @@
+{
+  "inventory_scope": "installed_distributions_for_current_environment",
+  "inventory_version": "1",
+  "legal_review_status": "unreviewed",
+  "lock_sha256": "b6516423a1e8048ac258b186ceca40355914922894168fb971a83ad0cd7de735",
+  "locked_package_count": 145,
+  "not_installed_locked_package_count": 4,
+  "not_installed_locked_packages": [
+    {
+      "name": "colorama",
+      "source_kind": "registry",
+      "version": "0.4.6"
+    },
+    {
+      "name": "httpx2-jsfetch",
+      "source_kind": "registry",
+      "version": "1.0"
+    },
+    {
+      "name": "pypdf2",
+      "source_kind": "registry",
+      "version": "3.0.1"
+    },
+    {
+      "name": "pywin32",
+      "source_kind": "registry",
+      "version": "312"
+    }
+  ],
+  "package_count": 141,
+  "packages": [
+    {
+      "license_classifiers": [],
+      "license_expression": "Apache-2.0",
+      "license_files": [
+        "agentscope-2.0.8.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "agentscope",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.0.8"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: Apache Software License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "aiofiles-25.1.0.dist-info/licenses/LICENSE",
+        "aiofiles-25.1.0.dist-info/licenses/NOTICE"
+      ],
+      "license_text": "Apache-2.0",
+      "name": "aiofiles",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "25.1.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: Python Software Foundation License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "aiohappyeyeballs-2.7.1.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "PSF-2.0",
+      "name": "aiohappyeyeballs",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.7.1"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [
+        "aiohttp-3.14.3.dist-info/licenses/LICENSE.txt",
+        "aiohttp-3.14.3.dist-info/licenses/vendor/llhttp/LICENSE"
+      ],
+      "license_text": "Apache-2.0 AND MIT",
+      "name": "aiohttp",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "3.14.3"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "aioitertools-0.13.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "aioitertools",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.13.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: Apache Software License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "aiosignal-1.4.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "Apache 2.0",
+      "name": "aiosignal",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.4.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "alembic-1.20.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "alembic",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.20.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "annotated_doc-0.0.5.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "annotated-doc",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.0.5"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": "MIT",
+      "license_files": [
+        "annotated_types-0.8.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "annotated-types",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.8.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "anthropic-1.8.0.dist-info/licenses/LICENSE",
+        "anthropic/_vendor/httpx_aiohttp/LICENSE",
+        "anthropic/_vendor/httpx_aiohttp/NOTICE.md"
+      ],
+      "license_text": "MIT",
+      "name": "anthropic",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.8.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "anyio-4.15.1.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "anyio",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "4.15.1"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "attrs-26.1.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "attrs",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "26.1.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MPL-2.0",
+      "license_files": [
+        "bidict-0.24.1.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "bidict",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.24.1"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [
+        "boto3-1.43.102.dist-info/LICENSE",
+        "boto3-1.43.102.dist-info/NOTICE"
+      ],
+      "license_text": "Apache-2.0",
+      "name": "boto3",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.43.102"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [
+        "botocore-1.43.102.dist-info/LICENSE.txt",
+        "botocore-1.43.102.dist-info/NOTICE"
+      ],
+      "license_text": "Apache-2.0",
+      "name": "botocore",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.43.102"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: BSD License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "cached_property-2.0.1.dist-info/LICENSE"
+      ],
+      "license_text": "BSD",
+      "name": "cached-property",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.0.1"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "certifi-2026.7.22.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "MPL-2.0",
+      "name": "certifi",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2026.7.22"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT-0",
+      "license_files": [
+        "cffi-2.1.1.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "cffi",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.1.1"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [
+        "charset_normalizer-3.5.1.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "MIT",
+      "name": "charset-normalizer",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "3.5.1"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "BSD-3-Clause",
+      "license_files": [
+        "click-8.5.0.dist-info/licenses/LICENSE.txt"
+      ],
+      "license_text": null,
+      "name": "click",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "8.5.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [],
+      "license_text": null,
+      "name": "contract-audit",
+      "review_status": "unreviewed",
+      "source_kind": "editable",
+      "version": "0.1.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "Apache-2.0 OR BSD-3-Clause",
+      "license_files": [
+        "cryptography-50.0.1.dist-info/licenses/LICENSE",
+        "cryptography-50.0.1.dist-info/licenses/LICENSE.APACHE",
+        "cryptography-50.0.1.dist-info/licenses/LICENSE.BSD"
+      ],
+      "license_text": null,
+      "name": "cryptography",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "50.0.1"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: Apache Software License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "dashscope-1.27.7.dist-info/licenses/LICENSE",
+        "dashscope-1.27.7.dist-info/licenses/LICENSE.certifi",
+        "dashscope-1.27.7.dist-info/licenses/NOTICE"
+      ],
+      "license_text": "Apache 2.0",
+      "name": "dashscope",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.27.7"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: Apache Software License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "distro-1.9.0.dist-info/LICENSE"
+      ],
+      "license_text": "Apache License, Version 2.0",
+      "name": "distro",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.9.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "docstring_parser-0.18.0.dist-info/licenses/LICENSE.md"
+      ],
+      "license_text": "MIT",
+      "name": "docstring-parser",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.18.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "fastapi-0.141.1.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "fastapi",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.141.1"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: BSD License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "fastuuid-0.14.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "fastuuid",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.14.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": "MIT",
+      "license_files": [
+        "filelock-4.0.3.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "filelock",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "4.0.3"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "filetype-1.2.0.dist-info/LICENSE"
+      ],
+      "license_text": "MIT",
+      "name": "filetype",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.2.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [
+        "frozenlist-1.8.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "Apache-2.0",
+      "name": "frozenlist",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.8.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "BSD-3-Clause",
+      "license_files": [
+        "fsspec-2026.9.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "fsspec",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2026.9.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "Apache-2.0",
+      "license_files": [
+        "googleapis_common_protos-1.75.4.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "googleapis-common-protos",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.75.4"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "ISC",
+      "license_files": [
+        "griffelib-2.3.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "griffelib",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.3.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "Apache-2.0",
+      "license_files": [
+        "grpcio-1.84.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "grpcio",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.84.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "h11-0.16.0.dist-info/licenses/LICENSE.txt"
+      ],
+      "license_text": "MIT",
+      "name": "h11",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.16.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: Apache Software License"
+      ],
+      "license_expression": "Apache-2.0",
+      "license_files": [
+        "hf_xet-1.6.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "hf-xet",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.6.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: BSD License"
+      ],
+      "license_expression": "BSD-3-Clause",
+      "license_files": [
+        "httpcore-1.0.9.dist-info/licenses/LICENSE.md"
+      ],
+      "license_text": null,
+      "name": "httpcore",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.0.9"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: BSD License"
+      ],
+      "license_expression": "BSD-3-Clause",
+      "license_files": [
+        "httpcore2-2.13.1.dist-info/licenses/LICENSE.md"
+      ],
+      "license_text": null,
+      "name": "httpcore2",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.13.1"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "httptools-0.8.0.dist-info/licenses/LICENSE",
+        "httptools-0.8.0.dist-info/licenses/vendor/http-parser/LICENSE-MIT",
+        "httptools-0.8.0.dist-info/licenses/vendor/llhttp/LICENSE"
+      ],
+      "license_text": null,
+      "name": "httptools",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.8.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: BSD License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "httpx-0.28.1.dist-info/licenses/LICENSE.md"
+      ],
+      "license_text": "BSD-3-Clause",
+      "name": "httpx",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.28.1"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [
+        "httpx_sse-0.4.3.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "MIT",
+      "name": "httpx-sse",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.4.3"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: BSD License"
+      ],
+      "license_expression": "BSD-3-Clause",
+      "license_files": [
+        "httpx2-2.13.1.dist-info/licenses/LICENSE.md"
+      ],
+      "license_text": null,
+      "name": "httpx2",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.13.1"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: Apache Software License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "huggingface_hub-1.33.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "Apache-2.0",
+      "name": "huggingface-hub",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.33.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "BSD-3-Clause",
+      "license_files": [
+        "idna-3.20.dist-info/licenses/LICENSE.md"
+      ],
+      "license_text": null,
+      "name": "idna",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "3.20"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "Apache-2.0",
+      "license_files": [
+        "importlib_metadata-8.9.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "importlib-metadata",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "8.9.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "iniconfig-2.3.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "iniconfig",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.3.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: BSD License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "jinja2-3.1.6.dist-info/licenses/LICENSE.txt"
+      ],
+      "license_text": null,
+      "name": "jinja2",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "3.1.6"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "jiter-0.17.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "jiter",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.17.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "jmespath-1.1.0.dist-info/LICENSE"
+      ],
+      "license_text": "MIT",
+      "name": "jmespath",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.1.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "json_repair-0.63.5.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "json-repair",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.63.5"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: Apache Software License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "json5-0.15.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "Files: Everything except for the benchmarks/*.json files.\n\nApache License\n                           Version 2.0, January 2004\n                        http://www.apache.org/licenses/\n\n   TERMS AND CONDITIONS FOR USE, REPRODUCTION, AND DISTRIBUTION\n\n   1. Definitions.\n\n      \"License\" shall mean the terms and conditions for use, reproduction,\n      and distribution as defined by Sections 1 through 9 of this document.\n\n      \"Licensor\" shall mean the copyright owner or entity authorized by\n      the copyright owner that is granting the License.\n\n      \"Legal Entity\" shall mean the union of the acting entity and all\n      other entities that control, are controlled by, or are under common\n      control with that entity. For the purposes of this definition,\n      \"control\" means (i) the power, direct or indirect, to cause the\n      direction or management of such entity, whether by contract or\n      otherwise, or (ii) ownership of fifty percent (50%) or more of the\n      outstanding shares, or (iii) beneficial ownership of such entity.\n\n      \"You\" (or \"Your\") shall mean an individual or Legal Entity\n      exercising permissions granted by this License.\n\n      \"Source\" form shall mean the preferred form for making modifications,\n      including but not limited to software source code, documentation\n      source, and configuration files.\n\n      \"Object\" form shall mean any form resulting from mechanical\n      transformation or translation of a Source form, including but\n      not limited to compiled object code, generated documentation,\n      and conversions to other media types.\n\n      \"Work\" shall mean the work of authorship, whether in Source or\n      Object form, made available under the License, as indicated by a\n      copyright notice that is included in or attached to the work\n      (an example is provided in the Appendix below).\n\n      \"Derivative Works\" shall mean any work, whether in Source or Object\n      form, that is based on (or derived from) the Work and for which the\n      editorial revisions, annotations, elaborations, or other modifications\n      represent, as a whole, an original work of authorship. For the purposes\n      of this License, Derivative Works shall not include works that remain\n      separable from, or merely link (or bind by name) to the interfaces of,\n      the Work and Derivative Works thereof.\n\n      \"Contribution\" shall mean any work of authorship, including\n      the original version of the Work and any modifications or additions\n      to that Work or Derivative Works thereof, that is intentionally\n      submitted to Licensor for inclusion in the Work by the copyright owner\n      or by an individual or Legal Entity authorized to submit on behalf of\n      the copyright owner. For the purposes of this definition, \"submitted\"\n      means any form of electronic, verbal, or written communication sent\n      to the Licensor or its representatives, including but not limited to\n      communication on electronic mailing lists, source code control systems,\n      and issue tracking systems that are managed by, or on behalf of, the\n      Licensor for the purpose of discussing and improving the Work, but\n      excluding communication that is conspicuously marked or otherwise\n      designated in writing by the copyright owner as \"Not a Contribution.\"\n\n      \"Contributor\" shall mean Licensor and any individual or Legal Entity\n      on behalf of whom a Contribution has been received by Licensor and\n      subsequently incorporated within the Work.\n\n   2. Grant of Copyright License. Subject to the terms and conditions of\n      this License, each Contributor hereby grants to You a perpetual,\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n      copyright license to reproduce, prepare Derivative Works of,\n      publicly display, publicly perform, sublicense, and distribute the\n      Work and such Derivative Works in Source or Object form.\n\n   3. Grant of Patent License. Subject to the terms and conditions of\n      this License, each Contributor hereby grants to You a perpetual,\n      worldwide, non-exclusive, no-charge, royalty-free, irrevocable\n      (except as stated in this section) patent license to make, have made,\n      use, offer to sell, sell, import, and otherwise transfer the Work,\n      where such license applies only to those patent claims licensable\n      by such Contributor that are necessarily infringed by their\n      Contribution(s) alone or by combination of their Contribution(s)\n      with the Work to which such Contribution(s) was submitted. If You\n      institute patent litigation against any entity (including a\n      cross-claim or counterclaim in a lawsuit) alleging that the Work\n      or a Contribution incorporated within the Work constitutes direct\n      or contributory patent infringement, then any patent licenses\n      granted to You under this License for that Work shall terminate\n      as of the date such litigation is filed.\n\n   4. Redistribution. You may reproduce and distribute copies of the\n      Work or Derivative Works thereof in any medium, with or without\n      modifications, and in Source or Object form, provided that You\n      meet the following conditions:\n\n      (a) You must give any other recipients of the Work or\n          Derivative Works a copy of this License; and\n\n      (b) You must cause any modified files to carry prominent notices\n          stating that You changed the files; and\n\n      (c) You must retain, in the Source form of any Derivative Works\n          that You distribute, all copyright, patent, trademark, and\n          attribution notices from the Source form of the Work,\n          excluding those notices that do not pertain to any part of\n          the Derivative Works; and\n\n      (d) If the Work includes a \"NOTICE\" text file as part of its\n          distribution, then any Derivative Works that You distribute must\n          include a readable copy of the attribution notices contained\n          within such NOTICE file, excluding those notices that do not\n          pertain to any part of the Derivative Works, in at least one\n          of the following places: within a NOTICE text file distributed\n          as part of the Derivative Works; within the Source form or\n          documentation, if provided along with the Derivative Works; or,\n          within a display generated by the Derivative Works, if and\n          wherever such third-party notices normally appear. The contents\n          of the NOTICE file are for informational purposes only and\n          do not modify the License. You may add Your own attribution\n          notices within Derivative Works that You distribute, alongside\n          or as an addendum to the NOTICE text from the Work, provided\n          that such additional attribution notices cannot be construed\n          as modifying the License.\n\n      You may add Your own copyright statement to Your modifications and\n      may provide additional or different license terms and conditions\n      for use, reproduction, or distribution of Your modifications, or\n      for any such Derivative Works as a whole, provided Your use,\n      reproduction, and distribution of the Work otherwise complies with\n      the conditions stated in this License.\n\n   5. Submission of Contributions. Unless You explicitly state otherwise,\n      any Contribution intentionally submitted for inclusion in the Work\n      by You to the Licensor shall be under the terms and conditions of\n      this License, without any additional terms or conditions.\n      Notwithstanding the above, nothing herein shall supersede or modify\n      the terms of any separate license agreement you may have executed\n      with Licensor regarding such Contributions.\n\n   6. Trademarks. This License does not grant permission to use the trade\n      names, trademarks, service marks, or product names of the Licensor,\n      except as required for reasonable and customary use in describing the\n      origin of the Work and reproducing the content of the NOTICE file.\n\n   7. Disclaimer of Warranty. Unless required by applicable law or\n      agreed to in writing, Licensor provides the Work (and each\n      Contributor provides its Contributions) on an \"AS IS\" BASIS,\n      WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or\n      implied, including, without limitation, any warranties or conditions\n      of TITLE, NON-INFRINGEMENT, MERCHANTABILITY, or FITNESS FOR A\n      PARTICULAR PURPOSE. You are solely responsible for determining the\n      appropriateness of using or redistributing the Work and assume any\n      risks associated with Your exercise of permissions under this License.\n\n   8. Limitation of Liability. In no event and under no legal theory,\n      whether in tort (including negligence), contract, or otherwise,\n      unless required by applicable law (such as deliberate and grossly\n      negligent acts) or agreed to in writing, shall any Contributor be\n      liable to You for damages, including any direct, indirect, special,\n      incidental, or consequential damages of any character arising as a\n      result of this License or out of the use or inability to use the\n      Work (including but not limited to damages for loss of goodwill,\n      work stoppage, computer failure or malfunction, or any and all\n      other commercial damages or losses), even if such Contributor\n      has been advised of the possibility of such damages.\n\n   9. Accepting Warranty or Additional Liability. While redistributing\n      the Work or Derivative Works thereof, You may choose to offer,\n      and charge a fee for, acceptance of support, warranty, indemnity,\n      or other liability obligations and/or rights consistent with this\n      License. However, in accepting such obligations, You may act only\n      on Your own behalf and on Your sole responsibility, not on behalf\n      of any other Contributor, and only if You agree to indemnify,\n      defend, and hold each Contributor harmless for any liability\n      incurred by, or claims asserted against, such Contributor by reason\n      of your accepting any such warranty or additional liability.\n\n   END OF TERMS AND CONDITIONS\n\n   APPENDIX: How to apply the Apache License to your work.\n\n      To apply the Apache License to your work, attach the following\n      boilerplate notice, with the fields enclosed by brackets \"{}\"\n      replaced with your own identifying information. (Don't include\n      the brackets!)  The text should be enclosed in the appropriate\n      comment syntax for the file format. We also recommend that a\n      file or class name and description of purpose be included on the\n      same \"printed page\" as the copyright notice for easier\n      identification within third-party archives.\n\n   Copyright {yyyy} {name of copyright owner}\n\n   Licensed under the Apache License, Version 2.0 (the \"License\");\n   you may not use this file except in compliance with the License.\n   You may obtain a copy of the License at\n\n       http://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, software\n   distributed under the License is distributed on an \"AS IS\" BASIS,\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n   See the License for the specific language governing permissions and\n   limitations under the License.\n\n---\n\nFile: benchmarks/64KB-min.json\n\nMIT License\n\nCopyright (c) Microsoft Corporation.\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE\n\n---\n\nFile: benchmarks/bitly-usa-gov.json\n\nThe MIT License (MIT)\n\nCopyright (c) 2017 Wes McKinney\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n\n---\n\nFile: benchmarks/twitter.json\n\nThe MIT License (MIT)\n\nCopyright (c) 2014 Milo Yip\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n",
+      "name": "json5",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.15.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "jsonschema-4.26.0.dist-info/licenses/COPYING"
+      ],
+      "license_text": null,
+      "name": "jsonschema",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "4.26.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "jsonschema_specifications-2025.9.1.dist-info/licenses/COPYING"
+      ],
+      "license_text": null,
+      "name": "jsonschema-specifications",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2025.9.1"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "librt-0.15.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "librt",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.15.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "litellm-1.102.1.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "litellm",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.102.1"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [
+        "lxml-6.1.3.dist-info/licenses/LICENSE.txt",
+        "lxml-6.1.3.dist-info/licenses/LICENSES.txt"
+      ],
+      "license_text": "BSD-3-Clause",
+      "name": "lxml",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "6.1.3"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "mako-1.4.3.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "mako",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.4.3"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "markdown_it_py-4.2.0.dist-info/licenses/LICENSE",
+        "markdown_it_py-4.2.0.dist-info/licenses/LICENSE.markdown-it"
+      ],
+      "license_text": null,
+      "name": "markdown-it-py",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "4.2.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "BSD-3-Clause",
+      "license_files": [
+        "markupsafe-3.0.3.dist-info/licenses/LICENSE.txt"
+      ],
+      "license_text": null,
+      "name": "markupsafe",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "3.0.3"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "mcp-1.30.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "MIT",
+      "name": "mcp",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.30.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "mdurl-0.1.2.dist-info/LICENSE"
+      ],
+      "license_text": null,
+      "name": "mdurl",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.1.2"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [
+        "multidict-6.9.1.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "Apache License 2.0",
+      "name": "multidict",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "6.9.1"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "mypy-1.20.2.dist-info/licenses/LICENSE",
+        "mypy-1.20.2.dist-info/licenses/mypy/typeshed/LICENSE",
+        "mypy/typeshed/LICENSE"
+      ],
+      "license_text": null,
+      "name": "mypy",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.20.2"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "mypy_extensions-1.1.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "mypy-extensions",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.1.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "BSD-3-Clause AND 0BSD AND MIT AND Zlib AND CC0-1.0",
+      "license_files": [
+        "numpy-2.5.3.dist-info/licenses/LICENSE.txt",
+        "numpy-2.5.3.dist-info/licenses/numpy/_core/include/numpy/libdivide/LICENSE.txt",
+        "numpy-2.5.3.dist-info/licenses/numpy/_core/src/common/pythoncapi-compat/COPYING",
+        "numpy-2.5.3.dist-info/licenses/numpy/_core/src/highway/LICENSE",
+        "numpy-2.5.3.dist-info/licenses/numpy/_core/src/npysort/x86-simd-sort/LICENSE.md",
+        "numpy-2.5.3.dist-info/licenses/numpy/_core/src/umath/svml/LICENSE",
+        "numpy-2.5.3.dist-info/licenses/numpy/fft/pocketfft/LICENSE.md",
+        "numpy-2.5.3.dist-info/licenses/numpy/linalg/lapack_lite/LICENSE.txt",
+        "numpy-2.5.3.dist-info/licenses/numpy/ma/LICENSE",
+        "numpy-2.5.3.dist-info/licenses/numpy/random/LICENSE.md",
+        "numpy-2.5.3.dist-info/licenses/numpy/random/src/distributions/LICENSE.md",
+        "numpy-2.5.3.dist-info/licenses/numpy/random/src/mt19937/LICENSE.md",
+        "numpy-2.5.3.dist-info/licenses/numpy/random/src/pcg64/LICENSE.md",
+        "numpy-2.5.3.dist-info/licenses/numpy/random/src/philox/LICENSE.md",
+        "numpy-2.5.3.dist-info/licenses/numpy/random/src/sfc64/LICENSE.md",
+        "numpy-2.5.3.dist-info/licenses/numpy/random/src/splitmix64/LICENSE.md",
+        "numpy/_core/include/numpy/random/LICENSE.txt",
+        "numpy/ma/LICENSE",
+        "numpy/random/LICENSE.md"
+      ],
+      "license_text": null,
+      "name": "numpy",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.5.3"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: Apache Software License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "openai-2.54.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "Apache-2.0",
+      "name": "openai",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.54.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": "MIT",
+      "license_files": [
+        "openai_agents-0.20.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "openai-agents",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.20.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "Apache-2.0",
+      "license_files": [
+        "opentelemetry_api-1.44.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "opentelemetry-api",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.44.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "Apache-2.0",
+      "license_files": [
+        "opentelemetry_exporter_otlp-1.44.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "opentelemetry-exporter-otlp",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.44.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "Apache-2.0",
+      "license_files": [
+        "opentelemetry_exporter_otlp_proto_common-1.44.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "opentelemetry-exporter-otlp-proto-common",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.44.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "Apache-2.0",
+      "license_files": [
+        "opentelemetry_exporter_otlp_proto_grpc-1.44.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "opentelemetry-exporter-otlp-proto-grpc",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.44.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "Apache-2.0",
+      "license_files": [
+        "opentelemetry_exporter_otlp_proto_http-1.44.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "opentelemetry-exporter-otlp-proto-http",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.44.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "Apache-2.0",
+      "license_files": [
+        "opentelemetry_proto-1.44.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "opentelemetry-proto",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.44.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "Apache-2.0",
+      "license_files": [
+        "opentelemetry_sdk-1.44.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "opentelemetry-sdk",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.44.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "Apache-2.0",
+      "license_files": [
+        "opentelemetry_semantic_conventions-0.65b0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "opentelemetry-semantic-conventions",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.65b0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "Apache-2.0 OR BSD-2-Clause",
+      "license_files": [
+        "packaging-26.3.dist-info/licenses/LICENSE",
+        "packaging-26.3.dist-info/licenses/LICENSE.APACHE",
+        "packaging-26.3.dist-info/licenses/LICENSE.BSD"
+      ],
+      "license_text": null,
+      "name": "packaging",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "26.3"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "pageindex-0.2.19.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "MIT",
+      "name": "pageindex",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.2.19"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: Mozilla Public License 2.0 (MPL 2.0)"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "pathspec-1.1.1.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "pathspec",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.1.1"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT-CMU",
+      "license_files": [
+        "pillow-12.3.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "pillow",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "12.3.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "pluggy-1.6.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "MIT",
+      "name": "pluggy",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.6.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [
+        "propcache-0.5.4.dist-info/licenses/LICENSE",
+        "propcache-0.5.4.dist-info/licenses/NOTICE"
+      ],
+      "license_text": "Apache-2.0",
+      "name": "propcache",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.5.4"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [
+        "protobuf-7.36.2.dist-info/LICENSE"
+      ],
+      "license_text": "3-Clause BSD License",
+      "name": "protobuf",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "7.36.2"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "LGPL-3.0-only",
+      "license_files": [
+        "psycopg-3.3.6.dist-info/licenses/LICENSE.txt"
+      ],
+      "license_text": null,
+      "name": "psycopg",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "3.3.6"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "LGPL-3.0-only",
+      "license_files": [
+        "psycopg_binary-3.3.6.dist-info/licenses/LICENSE.txt"
+      ],
+      "license_text": null,
+      "name": "psycopg-binary",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "3.3.6"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "LGPL-3.0-only",
+      "license_files": [
+        "psycopg_pool-3.3.3.dist-info/licenses/LICENSE.txt"
+      ],
+      "license_text": null,
+      "name": "psycopg-pool",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "3.3.3"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "BSD-3-Clause",
+      "license_files": [
+        "pycparser-3.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "pycparser",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "3.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "pydantic-2.13.5.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "pydantic",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.13.5"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "pydantic_core-2.46.5.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "pydantic-core",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.46.5"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": "MIT",
+      "license_files": [
+        "pydantic_settings-2.15.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "pydantic-settings",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.15.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "BSD-2-Clause",
+      "license_files": [
+        "pygments-2.21.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "pygments",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.21.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "pyjwt-2.15.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "pyjwt",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.15.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [
+        "pymupdf-1.28.2.dist-info/COPYING"
+      ],
+      "license_text": "Dual Licensed - GNU AFFERO GPL 3.0 or Artifex Commercial License",
+      "name": "pymupdf",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.28.2"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "BSD-3-Clause",
+      "license_files": [
+        "pypdf-6.19.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "pypdf",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "6.19.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [],
+      "license_text": "BSD-3-Clause, Apache-2.0, dependency licenses",
+      "name": "pypdfium2",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "5.13.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "pytest-9.1.1.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "pytest",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "9.1.1"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: The Unlicense (Unlicense)"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "python_datauri-3.0.2.dist-info/LICENSE"
+      ],
+      "license_text": "Unlicense",
+      "name": "python-datauri",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "3.0.2"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: Apache Software License",
+        "OSI Approved :: BSD License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "python_dateutil-2.9.0.post0.dist-info/LICENSE"
+      ],
+      "license_text": "Dual License",
+      "name": "python-dateutil",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.9.0.post0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "python_docx-1.2.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "MIT",
+      "name": "python-docx",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.2.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [
+        "python_dotenv-1.2.3.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "BSD-3-Clause",
+      "name": "python-dotenv",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.2.3"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [
+        "python_engineio-4.14.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "MIT",
+      "name": "python-engineio",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "4.14.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "python_frontmatter-1.3.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "python-frontmatter",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.3.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: Apache Software License"
+      ],
+      "license_expression": "Apache-2.0",
+      "license_files": [
+        "python_multipart-0.0.32.dist-info/licenses/LICENSE.txt"
+      ],
+      "license_text": null,
+      "name": "python-multipart",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.0.32"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [
+        "python_socketio-5.17.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "MIT",
+      "name": "python-socketio",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "5.17.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "pyyaml-6.0.3.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "MIT",
+      "name": "pyyaml",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "6.0.3"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "referencing-0.37.0.dist-info/licenses/COPYING"
+      ],
+      "license_text": null,
+      "name": "referencing",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.37.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "Apache-2.0 AND CNRI-Python",
+      "license_files": [
+        "regex-2026.9.10.dist-info/licenses/LICENSE.txt"
+      ],
+      "license_text": null,
+      "name": "regex",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2026.9.10"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: Apache Software License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "requests-2.34.2.dist-info/licenses/LICENSE",
+        "requests-2.34.2.dist-info/licenses/NOTICE"
+      ],
+      "license_text": "Apache-2.0",
+      "name": "requests",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.34.2"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "rich-15.0.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "MIT",
+      "name": "rich",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "15.0.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "rpds_py-2026.6.3.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "rpds-py",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2026.6.3"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "ruff-0.16.9.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "ruff",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.16.9"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: Apache Software License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "s3transfer-0.19.2.dist-info/LICENSE.txt",
+        "s3transfer-0.19.2.dist-info/NOTICE.txt"
+      ],
+      "license_text": "Apache License 2.0",
+      "name": "s3transfer",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.19.2"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: ISC License (ISCL)"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "shellingham-1.5.4.dist-info/LICENSE"
+      ],
+      "license_text": "ISC License",
+      "name": "shellingham",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.5.4"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: BSD License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "COPYING",
+        "shortuuid-1.0.13.dist-info/COPYING"
+      ],
+      "license_text": "BSD-3-Clause",
+      "name": "shortuuid",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.0.13"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "simple_websocket-1.1.0.dist-info/LICENSE"
+      ],
+      "license_text": null,
+      "name": "simple-websocket",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.1.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "six-1.17.0.dist-info/LICENSE"
+      ],
+      "license_text": "MIT",
+      "name": "six",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.17.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: Apache Software License",
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "sniffio-1.3.1.dist-info/LICENSE",
+        "sniffio-1.3.1.dist-info/LICENSE.APACHE2",
+        "sniffio-1.3.1.dist-info/LICENSE.MIT"
+      ],
+      "license_text": "MIT OR Apache-2.0",
+      "name": "sniffio",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.3.1"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: Apache Software License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "sortedcontainers-2.4.0.dist-info/LICENSE"
+      ],
+      "license_text": "Apache 2.0",
+      "name": "sortedcontainers",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.4.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "sqlalchemy-2.1.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "sqlalchemy",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.1.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "BSD-3-Clause",
+      "license_files": [
+        "sse_starlette-3.4.11.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "sse-starlette",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "3.4.11"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "BSD-3-Clause",
+      "license_files": [
+        "starlette-1.7.0.dist-info/licenses/LICENSE.md"
+      ],
+      "license_text": null,
+      "name": "starlette",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.7.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [
+        "tiktoken-0.14.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "MIT License\n\nCopyright (c) 2022 OpenAI, Shantanu Jain\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n",
+      "name": "tiktoken",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.14.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: Apache Software License"
+      ],
+      "license_expression": null,
+      "license_files": [],
+      "license_text": null,
+      "name": "tokenizers",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.23.2"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [
+        "tqdm-4.70.1.dist-info/licenses/LICENCE"
+      ],
+      "license_text": "MPL-2.0 AND MIT",
+      "name": "tqdm",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "4.70.1"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "tree_sitter-0.26.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "tree-sitter",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.26.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "tree_sitter_bash-0.25.1.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "MIT",
+      "name": "tree-sitter-bash",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.25.1"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "truststore-0.10.4.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "truststore",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.10.4"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "typer-0.27.2.dist-info/licenses/LICENSE",
+        "typer/_click/LICENSE.txt"
+      ],
+      "license_text": null,
+      "name": "typer",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.27.2"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "Apache-2.0",
+      "license_files": [
+        "types_jsonschema-4.26.0.20260518.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "types-jsonschema",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "4.26.0.20260518"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "Apache-2.0",
+      "license_files": [
+        "types_pyyaml-6.0.12.20260906.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "types-pyyaml",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "6.0.12.20260906"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "PSF-2.0",
+      "license_files": [
+        "typing_extensions-4.16.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "typing-extensions",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "4.16.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "typing_inspection-0.4.4.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "typing-inspection",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.4.4"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [
+        "tzdata-2026.4.dist-info/licenses/LICENSE",
+        "tzdata-2026.4.dist-info/licenses/licenses/LICENSE_APACHE"
+      ],
+      "license_text": "Apache-2.0",
+      "name": "tzdata",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2026.4"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "urllib3-2.8.0.dist-info/licenses/LICENSE.txt"
+      ],
+      "license_text": null,
+      "name": "urllib3",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "2.8.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "BSD-3-Clause",
+      "license_files": [
+        "uvicorn-0.53.0.dist-info/licenses/LICENSE.md"
+      ],
+      "license_text": null,
+      "name": "uvicorn",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.53.0"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: Apache Software License",
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "uvloop-0.22.1.dist-info/licenses/LICENSE-APACHE",
+        "uvloop-0.22.1.dist-info/licenses/LICENSE-MIT"
+      ],
+      "license_text": "MIT License",
+      "name": "uvloop",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "0.22.1"
+    },
+    {
+      "license_classifiers": [
+        "OSI Approved :: MIT License"
+      ],
+      "license_expression": null,
+      "license_files": [
+        "watchfiles-1.3.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "MIT",
+      "name": "watchfiles",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.3.0"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [
+        "websocket_client-1.9.2.dist-info/licenses/LICENSE"
+      ],
+      "license_text": "Apache-2.0",
+      "name": "websocket-client",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.9.2"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "BSD-3-Clause",
+      "license_files": [
+        "websockets-16.1.1.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "websockets",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "16.1.1"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "wsproto-1.3.2.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "wsproto",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.3.2"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": null,
+      "license_files": [
+        "yarl-1.25.1.dist-info/licenses/LICENSE",
+        "yarl-1.25.1.dist-info/licenses/NOTICE"
+      ],
+      "license_text": "Apache-2.0",
+      "name": "yarl",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "1.25.1"
+    },
+    {
+      "license_classifiers": [],
+      "license_expression": "MIT",
+      "license_files": [
+        "zipp-4.1.0.dist-info/licenses/LICENSE"
+      ],
+      "license_text": null,
+      "name": "zipp",
+      "review_status": "unreviewed",
+      "source_kind": "registry",
+      "version": "4.1.0"
+    }
+  ],
+  "platform": "linux",
+  "python_version": "3.13.13"
+}

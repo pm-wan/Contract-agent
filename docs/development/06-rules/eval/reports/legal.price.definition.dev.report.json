@@ -1,0 +1,139 @@
+{
+  "cases": [
+    {
+      "case_id": "price-consistent-001",
+      "kind": "positive",
+      "mismatches": [],
+      "observed": true,
+      "passed": true
+    },
+    {
+      "case_id": "price-tax-conflict-001",
+      "kind": "conflict",
+      "mismatches": [],
+      "observed": true,
+      "passed": true
+    },
+    {
+      "case_id": "price-fixed-percentage-conflict-001",
+      "kind": "conflict",
+      "mismatches": [],
+      "observed": true,
+      "passed": true
+    },
+    {
+      "case_id": "price-missing-denominator-001",
+      "kind": "missing_material",
+      "mismatches": [],
+      "observed": true,
+      "passed": true
+    },
+    {
+      "case_id": "price-source-conflict-001",
+      "kind": "conflict",
+      "mismatches": [],
+      "observed": true,
+      "passed": true
+    },
+    {
+      "case_id": "price-multicurrency-001",
+      "kind": "boundary",
+      "mismatches": [],
+      "observed": true,
+      "passed": true
+    },
+    {
+      "case_id": "price-repeated-stage-001",
+      "kind": "boundary",
+      "mismatches": [],
+      "observed": true,
+      "passed": true
+    },
+    {
+      "case_id": "price-no-amount-001",
+      "kind": "negative",
+      "mismatches": [],
+      "observed": true,
+      "passed": true
+    },
+    {
+      "case_id": "price-injection-001",
+      "kind": "security",
+      "mismatches": [],
+      "observed": true,
+      "passed": true
+    },
+    {
+      "case_id": "price-evidence-missing-001",
+      "kind": "security",
+      "mismatches": [],
+      "observed": true,
+      "passed": true
+    }
+  ],
+  "gate_status": "blocked_no_approved_thresholds",
+  "metrics": {
+    "by_case_kind": {
+      "boundary": {
+        "case_count": 2,
+        "case_pass_rate": 1.0,
+        "failed_case_count": 0,
+        "observation_count": 2,
+        "passed_case_count": 2
+      },
+      "conflict": {
+        "case_count": 3,
+        "case_pass_rate": 1.0,
+        "failed_case_count": 0,
+        "observation_count": 3,
+        "passed_case_count": 3
+      },
+      "missing_material": {
+        "case_count": 1,
+        "case_pass_rate": 1.0,
+        "failed_case_count": 0,
+        "observation_count": 1,
+        "passed_case_count": 1
+      },
+      "negative": {
+        "case_count": 1,
+        "case_pass_rate": 1.0,
+        "failed_case_count": 0,
+        "observation_count": 1,
+        "passed_case_count": 1
+      },
+      "positive": {
+        "case_count": 1,
+        "case_pass_rate": 1.0,
+        "failed_case_count": 0,
+        "observation_count": 1,
+        "passed_case_count": 1
+      },
+      "security": {
+        "case_count": 2,
+        "case_pass_rate": 1.0,
+        "failed_case_count": 0,
+        "observation_count": 2,
+        "passed_case_count": 2
+      }
+    },
+    "case_count": 10,
+    "case_pass_rate": 1.0,
+    "failed_case_count": 0,
+    "missing_case_kinds": [],
+    "observation_count": 10,
+    "passed_case_count": 10
+  },
+  "observations_sha256": "4a7fcf4ab51eef721c11afd7283615e94db7ae062388279c5cc5909a16afc329",
+  "report_sha256": "017edf398be3b31d2c813646ac6e65438166703a0779632fd674e1e2741b6aa2",
+  "report_version": "1.2",
+  "suite": {
+    "fixture_manifest_sha256": "18b2719aefcc80d98cf7ee63aa74760a3c2010f5d9fe471971a73469a59b253c",
+    "level": "development",
+    "rule_ref": "legal.price.definition@1.0.0",
+    "rule_sha256": "eec02a45364178721f2894eac1c7bcd1a1bcc1b451f3e94b866e8d65be8f3b93",
+    "source_sha256": "d3a0447267bb42ba8edbe45de74cf179fcf16790be1548bf8e05013f52ad4c0d",
+    "suite_id": "legal.price.definition.dev",
+    "version": "1.0.0"
+  }
+}

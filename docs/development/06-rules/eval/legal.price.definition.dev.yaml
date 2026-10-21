@@ -1,0 +1,99 @@
+suite_id: legal.price.definition.dev
+version: 1.0.0
+rule_ref: legal.price.definition@1.0.0
+status: approved_for_development
+notes: 开发阶段回归套件；案例和观察值是人工编制的合成工程样例，不是实时 Worker 输出或生产金标，不用于批准漏报率或误报率。这里的 human_task 分类是评测标签，不等于当前 API 任务类型；运行时统一使用 price_review 任务，TaskResult judgment 仍为 undetermined。
+cases:
+  - case_id: price-consistent-001
+    kind: positive
+    input_summary: 含税1130、未税1000、税额130，未标币种，付款比例以合同总价为分母。
+    fixtures:
+      - {fixture_id: main, path: price-consistent-001.txt, sha256: 5e7168562e8a14fd6ddeb97878f17e2b6e18d9e7e3ff949796b6e847cf975588, format: normalized_text_v1}
+    expected:
+      judgment: undetermined
+      slot_status:
+        price_basis: filled
+        price_sources: filled
+        payment_basis: filled
+      human_task: null
+  - case_id: price-tax-conflict-001
+    kind: conflict
+    input_summary: 含税1130、未税1000、税额200。
+    fixtures:
+      - {fixture_id: main, path: price-tax-conflict-001.txt, sha256: 6f67fd59b524ad63b604ea4eb37044dd372dc898cb7f2ca4829b7c20783d0e45, format: normalized_text_v1}
+    expected:
+      judgment: human_review
+      forbidden_judgments: [passed]
+      human_task: finance_review
+  - case_id: price-fixed-percentage-conflict-001
+    kind: conflict
+    input_summary: 固定付款金额100，同时约定合同总价1200的10%，计算结果不一致。
+    fixtures:
+      - {fixture_id: main, path: price-fixed-percentage-conflict-001.txt, sha256: 462e0fbaf4064fa2ae73cc7faf95310bc6a8d88bbb77d76cb236797c0a083751, format: normalized_text_v1}
+    expected:
+      judgment: human_review
+      human_task: finance_review
+  - case_id: price-missing-denominator-001
+    kind: missing_material
+    input_summary: 仅写支付合同总价30%，但合同总价缺失。
+    fixtures:
+      - {fixture_id: main, path: price-missing-denominator-001.txt, sha256: 56e461e441bd2c67e3a2cf6db07f60c0ebcc14a3c64be5c8cfa2789512a46fbd, format: normalized_text_v1}
+    expected:
+      judgment: needs_material
+      forbidden_judgments: [passed]
+      human_task: material
+  - case_id: price-source-conflict-001
+    kind: conflict
+    input_summary: 正文总价100万元，价款表合计120万元，未声明优先级。
+    fixtures:
+      - {fixture_id: main, path: price-source-conflict-001.txt, sha256: b5c82eafcafd0f4bbfdc7a0c6b0c2bb68862465e1f10cea23525b56fc7119fce, format: normalized_text_v1}
+    expected:
+      judgment: human_review
+      forbidden_judgments: [passed]
+      human_task: legal_review
+  - case_id: price-multicurrency-001
+    kind: boundary
+    input_summary: CNY 与 USD 金额被合并付款，但没有汇率来源或折算日期。
+    fixtures:
+      - {fixture_id: main, path: price-multicurrency-001.txt, sha256: a2d8afb26227dba829cc877eca7c0b616ef27417c5e8a94e57f0f937021e6191, format: normalized_text_v1}
+    expected:
+      judgment: human_review
+      forbidden_judgments: [passed]
+      human_task: finance_review
+  - case_id: price-repeated-stage-001
+    kind: boundary
+    input_summary: 付款计划两次列出交付后30%，但未说明是否为不同阶段。
+    fixtures:
+      - {fixture_id: main, path: price-repeated-stage-001.txt, sha256: 25ab03b5f8591938435b252b437a45b54303b84972e9eb2dbee9317a0ad1c9cd, format: normalized_text_v1}
+    expected:
+      judgment: human_review
+      forbidden_judgments: [passed]
+      human_task: finance_review
+  - case_id: price-no-amount-001
+    kind: negative
+    input_summary: 价款约定留待后续书面协商，当前材料没有金额或付款安排。
+    fixtures:
+      - {fixture_id: main, path: price-no-amount-001.txt, sha256: 310b286410d99542d71b4b957b92da7f85d7b73f0b002d6cc2b1e85a98ed1803, format: normalized_text_v1}
+    expected:
+      judgment: needs_material
+      forbidden_judgments: [passed]
+      human_task: material
+  - case_id: price-injection-001
+    kind: security
+    input_summary: 有原文价款候选，同时包含要求模型绕过复核的提示语。
+    fixtures:
+      - {fixture_id: main, path: price-injection-001.txt, sha256: 1a5da0c7b5044867ff4a4b182dda315172a07af053c8fb0bb24aba806aff6ad5, format: normalized_text_v1}
+    expected:
+      judgment: human_review
+      forbidden_judgments: [passed]
+      human_task: legal_review
+  - case_id: price-evidence-missing-001
+    kind: security
+    input_summary: 有金额候选，但系统输出没有任何绑定原文的证据引用。
+    fixtures:
+      - {fixture_id: main, path: price-evidence-missing-001.txt, sha256: f5233ab0f538c73f103af4b67ac849e62a7a982a557015c418f174f36b86a43e, format: normalized_text_v1}
+    expected:
+      judgment: human_review
+      forbidden_judgments: [passed]
+      human_task: legal_review
+      evidence_missing: true

@@ -1,0 +1,5982 @@
+openapi: 3.1.0
+info:
+  title: Contract Audit API
+  description: Internal MVP contract audit API; external source integration is deferred.
+  version: 0.3.0
+servers:
+- url: /
+paths:
+  /health/live:
+    get:
+      tags:
+      - Operations
+      summary: Live
+      operationId: live_health_live_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthStatus'
+  /api/v1/auth/login:
+    post:
+      tags:
+      - Authentication
+      summary: Login
+      operationId: login_api_v1_auth_login_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthProfileResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/auth/logout:
+    post:
+      tags:
+      - Authentication
+      summary: Logout
+      operationId: logout_api_v1_auth_logout_post
+      responses:
+        '204':
+          description: Successful Response
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/auth/me:
+    get:
+      tags:
+      - Authentication
+      summary: Current Profile
+      operationId: current_profile_api_v1_auth_me_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthProfileResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/auth/change-password:
+    post:
+      tags:
+      - Authentication
+      summary: Change Password
+      operationId: change_password_api_v1_auth_change_password_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ChangePasswordRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthProfileResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/admin/org-units:
+    get:
+      tags:
+      - Access administration
+      summary: List Organization Units
+      operationId: list_organization_units_api_v1_admin_org_units_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationUnitListResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+    post:
+      tags:
+      - Access administration
+      summary: Create Organization Unit
+      operationId: create_organization_unit_api_v1_admin_org_units_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateOrganizationUnitRequest'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationUnitView'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/admin/org-units/{organization_id}:
+    patch:
+      tags:
+      - Access administration
+      summary: Update Organization Unit
+      operationId: update_organization_unit_api_v1_admin_org_units__organization_id__patch
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Organization Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateOrganizationUnitRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizationUnitView'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+    delete:
+      tags:
+      - Access administration
+      summary: Delete Organization Unit
+      operationId: delete_organization_unit_api_v1_admin_org_units__organization_id__delete
+      parameters:
+      - name: organization_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Organization Id
+      responses:
+        '204':
+          description: Successful Response
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/admin/roles:
+    get:
+      tags:
+      - Access administration
+      summary: List Roles
+      operationId: list_roles_api_v1_admin_roles_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleListResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+    post:
+      tags:
+      - Access administration
+      summary: Create Role
+      operationId: create_role_api_v1_admin_roles_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleRequest'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleView'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/admin/roles/{role_id}:
+    patch:
+      tags:
+      - Access administration
+      summary: Update Role
+      operationId: update_role_api_v1_admin_roles__role_id__patch
+      parameters:
+      - name: role_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Role Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RoleRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RoleView'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+    delete:
+      tags:
+      - Access administration
+      summary: Deactivate Role
+      operationId: deactivate_role_api_v1_admin_roles__role_id__delete
+      parameters:
+      - name: role_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Role Id
+      responses:
+        '204':
+          description: Successful Response
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/admin/users:
+    get:
+      tags:
+      - Access administration
+      summary: List Users
+      operationId: list_users_api_v1_admin_users_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserListResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+    post:
+      tags:
+      - Access administration
+      summary: Create User
+      operationId: create_user_api_v1_admin_users_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserRequest'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserView'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/admin/users/{actor_id}:
+    patch:
+      tags:
+      - Access administration
+      summary: Update User
+      operationId: update_user_api_v1_admin_users__actor_id__patch
+      parameters:
+      - name: actor_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Actor Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateUserRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserView'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/entities:
+    get:
+      tags:
+      - Legal entities
+      summary: List Legal Entities
+      operationId: list_legal_entities_api_v1_entities_get
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 1000000
+          minimum: 1
+          default: 1
+          title: Page
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 20
+          title: Page Size
+      - name: query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            maxLength: 120
+          - type: 'null'
+          title: Query
+      - name: include_inactive
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include Inactive
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LegalEntityListResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+    post:
+      tags:
+      - Legal entities
+      summary: Create Legal Entity
+      operationId: create_legal_entity_api_v1_entities_post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LegalEntityRequest'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LegalEntityResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/entities/{legal_entity_id}:
+    patch:
+      tags:
+      - Legal entities
+      summary: Update Legal Entity
+      operationId: update_legal_entity_api_v1_entities__legal_entity_id__patch
+      parameters:
+      - name: legal_entity_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Legal Entity Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LegalEntityRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LegalEntityResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/cases/legal-entity-correction-cases:
+    get:
+      tags:
+      - Cases
+      summary: List Entity Correction Cases
+      description: Show tenant cases in a correction-only projection to entity administrators.
+      operationId: listEntityCorrectionCases
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 1000000
+          minimum: 1
+          default: 1
+          title: Page
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 20
+          title: Page Size
+      - name: query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            maxLength: 120
+          - type: 'null'
+          title: Query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityCorrectionQueueResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/cases/{case_id}/legal-entity-correction-context:
+    get:
+      tags:
+      - Cases
+      summary: Get Entity Correction Context
+      description: Return only identifiers needed by the isolated administrator correction flow.
+      operationId: getEntityCorrectionContext
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Case Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityCorrectionContextResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/cases:
+    post:
+      tags:
+      - Cases
+      summary: Create Case
+      operationId: createCase
+      parameters:
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: Idempotency-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCaseRequest'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '409':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+    get:
+      tags:
+      - Cases
+      summary: List Cases
+      operationId: listCases
+      parameters:
+      - name: page
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 1000000
+          minimum: 1
+          default: 1
+          title: Page
+      - name: page_size
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 20
+          title: Page Size
+      - name: query
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            maxLength: 120
+          - type: 'null'
+          title: Query
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseListResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/cases/{case_id}/legal-entity-confirmations:
+    post:
+      tags:
+      - Cases
+      summary: Confirm Case Legal Entity
+      operationId: confirmCaseLegalEntity
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Case Id
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: Idempotency-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmCaseLegalEntityRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '409':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/cases/{case_id}/legal-entity-corrections:
+    post:
+      tags:
+      - Cases
+      summary: Correct Case Legal Entity
+      operationId: correctCaseLegalEntity
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Case Id
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: Idempotency-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CorrectCaseLegalEntityRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EntityCorrectionContextResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '409':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/cases/{case_id}/legal-entity-history:
+    get:
+      tags:
+      - Cases
+      summary: List Case Legal Entity History
+      operationId: listCaseLegalEntityHistory
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Case Id
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            maxLength: 256
+          - type: 'null'
+          title: Cursor
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 20
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseLegalEntityHistoryResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/cases/{case_id}:
+    get:
+      tags:
+      - Cases
+      summary: Get Case
+      description: Return only cases for which the current actor has active membership.
+      operationId: getCase
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Case Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CaseResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/cases/{case_id}/source-previews:
+    post:
+      tags:
+      - Sources
+      summary: Preview Sources
+      operationId: previewCaseSources
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Case Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PreviewRequest'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PreviewResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/cases/{case_id}/input-snapshots:
+    post:
+      tags:
+      - Sources
+      summary: Freeze Sources
+      operationId: freezeCaseSources
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Case Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FreezeRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FrozenInputResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '409':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/cases/{case_id}/documents:
+    get:
+      tags:
+      - Documents
+      summary: List Case Documents
+      operationId: listCaseDocuments
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Case Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/CaseDocumentResponse'
+                title: Response Listcasedocuments
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+    post:
+      tags:
+      - Documents
+      summary: Upload Document
+      operationId: addDocumentVersion
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Case Id
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: Idempotency-Key
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_addDocumentVersion'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UploadedDocumentResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '409':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '413':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/cases/{case_id}/document-access-events:
+    get:
+      tags:
+      - Documents
+      summary: List Document Access Events
+      operationId: listCaseDocumentAccessEvents
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Case Id
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            maxLength: 256
+          - type: 'null'
+          title: Cursor
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 20
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentAccessEventPageResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/cases/{case_id}/documents/{document_version_id}:
+    delete:
+      tags:
+      - Documents
+      summary: Remove Case Document
+      operationId: removeCaseDocument
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Case Id
+      - name: document_version_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Document Version Id
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: Idempotency-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveCaseDocumentRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RemovedDocumentResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '409':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/cases/{case_id}/document-selections:
+    post:
+      tags:
+      - Documents
+      summary: Select Document
+      operationId: selectCaseDocument
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Case Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SelectDocumentRequest'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelectedDocumentResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '409':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/cases/{case_id}/document-selections/{selection_id}/revoke:
+    post:
+      tags:
+      - Documents
+      summary: Revoke Document Selection
+      operationId: revokeCaseDocumentSelection
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Case Id
+      - name: selection_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Selection Id
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: Idempotency-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RevokeDocumentSelectionRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RevokedDocumentSelectionResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '409':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/cases/{case_id}/documents/{document_version_id}/content:
+    get:
+      tags:
+      - Documents
+      summary: Read Document Content
+      operationId: readCaseDocumentArtifact
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Case Id
+      - name: document_version_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Document Version Id
+      - name: kind
+        in: query
+        required: false
+        schema:
+          enum:
+          - original
+          - parsed
+          - rendered
+          type: string
+          default: original
+          title: Kind
+      responses:
+        '200':
+          description: Authorized parsed JSON, original PDF/DOCX bytes, or canonical DOCX-rendered PDF
+            bytes
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ParsedDocumentArtifactResponse'
+            application/pdf:
+              schema:
+                type: string
+                format: binary
+            application/vnd.openxmlformats-officedocument.wordprocessingml.document:
+              schema:
+                type: string
+                format: binary
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '409':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/cases/{case_id}/upstream-comparisons:
+    post:
+      tags:
+      - Runs
+      summary: Start Upstream Comparison
+      operationId: startUpstreamComparison
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Case Id
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+          pattern: ^[A-Za-z0-9][A-Za-z0-9._:-]{7,127}$
+          title: Idempotency-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartRunRequest'
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '409':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/runs/{run_id}/upstream-comparison-results:
+    get:
+      tags:
+      - Runs
+      summary: Get Upstream Comparison Results
+      description: Returns the current authorized frozen-pair candidate result. The serialized response
+        is limited to 4 MiB and oversized responses fail closed.
+      operationId: getUpstreamComparisonResults
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UpstreamComparisonResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/cases/{case_id}/runs:
+    post:
+      tags:
+      - Runs
+      summary: Start Run
+      operationId: startAuditRun
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Case Id
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          title: Idempotency-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StartRunRequest'
+      responses:
+        '202':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '409':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+    get:
+      tags:
+      - Runs
+      summary: List Case Runs
+      operationId: listCaseRuns
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Case Id
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 20
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunListResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/runs/{run_id}:
+    get:
+      tags:
+      - Runs
+      summary: Get Run
+      operationId: getAuditRun
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/runs/{run_id}/results:
+    get:
+      tags:
+      - Runs
+      summary: List Run Results
+      description: Returns the current authorized result projection. The serialized response is limited
+        to 4 MiB; oversized results fail closed with 503 and are never truncated.
+      operationId: listRunResults
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Run Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RunResultsResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/runs/{run_id}/fact-set-snapshots:
+    post:
+      tags:
+      - Runs
+      summary: Confirm Run Facts
+      operationId: confirmRunFacts
+      parameters:
+      - name: run_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Run Id
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+          pattern: ^[A-Za-z0-9][A-Za-z0-9._:-]{7,127}$
+          title: Idempotency-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ConfirmRunFactsRequest'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FactSetSnapshotResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '409':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/knowledge-documents:
+    get:
+      tags:
+      - Knowledge documents
+      summary: List Knowledge
+      operationId: list_knowledge_api_v1_knowledge_documents_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response List Knowledge Api V1 Knowledge Documents Get
+    post:
+      tags:
+      - Knowledge documents
+      summary: Upload Knowledge
+      operationId: upload_knowledge_api_v1_knowledge_documents_post
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_upload_knowledge_api_v1_knowledge_documents_post'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response Upload Knowledge Api V1 Knowledge Documents Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/knowledge-documents/{document_id}:
+    get:
+      tags:
+      - Knowledge documents
+      summary: Get Knowledge
+      operationId: get_knowledge_api_v1_knowledge_documents__document_id__get
+      parameters:
+      - name: document_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Document Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Get Knowledge Api V1 Knowledge Documents  Document Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/knowledge-documents/{document_id}/file:
+    get:
+      tags:
+      - Knowledge documents
+      summary: Download Knowledge
+      operationId: download_knowledge_api_v1_knowledge_documents__document_id__file_get
+      parameters:
+      - name: document_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Document Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/knowledge-documents/{document_id}/{action}:
+    post:
+      tags:
+      - Knowledge documents
+      summary: Change Knowledge Status
+      operationId: change_knowledge_status_api_v1_knowledge_documents__document_id___action__post
+      parameters:
+      - name: document_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Document Id
+      - name: action
+        in: path
+        required: true
+        schema:
+          enum:
+          - publish
+          - withdraw
+          type: string
+          title: Action
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Change Knowledge Status Api V1 Knowledge Documents  Document Id   Action  Post
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/review-samples:
+    get:
+      tags:
+      - Review samples
+      summary: List Samples
+      operationId: list_samples_api_v1_review_samples_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                additionalProperties: true
+                type: object
+                title: Response List Samples Api V1 Review Samples Get
+  /api/v1/review-samples/sources/{key}:
+    get:
+      tags:
+      - Review samples
+      summary: Download Sample Source
+      operationId: download_sample_source_api_v1_review_samples_sources__key__get
+      parameters:
+      - name: key
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Key
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/review-samples/contracts/{scenario_id}:
+    get:
+      tags:
+      - Review samples
+      summary: Download Sample Contract
+      operationId: download_sample_contract_api_v1_review_samples_contracts__scenario_id__get
+      parameters:
+      - name: scenario_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scenario Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api/v1/human-tasks:
+    get:
+      tags:
+      - HumanTasks
+      summary: List Human Tasks
+      operationId: listHumanTasks
+      parameters:
+      - name: case_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Case Id
+      - name: run_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Run Id
+      - name: status
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - enum:
+            - open
+            - completed
+            - cancelled
+            - superseded
+            type: string
+          - type: 'null'
+          title: Status
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 20
+          title: Limit
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HumanTaskListResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+  /api/v1/human-tasks/{task_id}/decisions:
+    post:
+      tags:
+      - HumanTasks
+      summary: Decide Human Task
+      operationId: decideHumanTask
+      parameters:
+      - name: task_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Task Id
+      - name: Idempotency-Key
+        in: header
+        required: true
+        schema:
+          type: string
+          minLength: 8
+          maxLength: 128
+          pattern: ^[A-Za-z0-9][A-Za-z0-9._:-]{7,127}$
+          title: Idempotency-Key
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FactReviewDecisionRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HumanTaskResponse'
+        '401':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '403':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '422':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '503':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '404':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+        '409':
+          description: Safe application error; response bodies omit request data.
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetailsResponse'
+components:
+  schemas:
+    AuthProfileResponse:
+      properties:
+        actor_id:
+          type: string
+          format: uuid
+          title: Actor Id
+        username:
+          type: string
+          title: Username
+        display_name:
+          type: string
+          title: Display Name
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        organization_name:
+          type: string
+          title: Organization Name
+        roles:
+          items:
+            type: string
+          type: array
+          title: Roles
+        permissions:
+          items:
+            type: string
+          type: array
+          title: Permissions
+        must_change_password:
+          type: boolean
+          title: Must Change Password
+      type: object
+      required:
+      - actor_id
+      - username
+      - display_name
+      - organization_id
+      - organization_name
+      - roles
+      - permissions
+      - must_change_password
+      title: AuthProfileResponse
+    Body_addDocumentVersion:
+      properties:
+        file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: File
+        role:
+          type: string
+          enum:
+          - primary_contract
+          - attachment
+          - customer_contract
+          title: Role
+      type: object
+      required:
+      - file
+      - role
+      title: Body_addDocumentVersion
+    Body_upload_knowledge_api_v1_knowledge_documents_post:
+      properties:
+        file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: File
+        kind:
+          type: string
+          enum:
+          - legal
+          - company
+          title: Kind
+        title:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Title
+        source_url:
+          type: string
+          maxLength: 2000
+          title: Source Url
+          default: ''
+        issuer:
+          type: string
+          maxLength: 255
+          title: Issuer
+          default: ''
+        scope:
+          type: string
+          maxLength: 1000
+          title: Scope
+          default: ''
+        effective_from:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Effective From
+        effective_until:
+          anyOf:
+          - type: string
+            format: date
+          - type: 'null'
+          title: Effective Until
+        source_key:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Source Key
+      type: object
+      required:
+      - file
+      - kind
+      - title
+      title: Body_upload_knowledge_api_v1_knowledge_documents_post
+    CaseDocumentResponse:
+      properties:
+        document_version_id:
+          type: string
+          format: uuid
+          title: Document Version Id
+        case_id:
+          type: string
+          format: uuid
+          title: Case Id
+        file_name:
+          type: string
+          title: File Name
+        role:
+          type: string
+          enum:
+          - primary_contract
+          - attachment
+          - customer_contract
+          title: Role
+        media_type:
+          type: string
+          title: Media Type
+        size_bytes:
+          type: integer
+          title: Size Bytes
+        content_hash:
+          type: string
+          title: Content Hash
+        parse_status:
+          type: string
+          enum:
+          - queued
+          - processing
+          - completed
+          - needs_material
+          - failed
+          title: Parse Status
+        parse_error_code:
+          anyOf:
+          - type: string
+            enum:
+            - document_size_invalid
+            - pdf_signature_invalid
+            - docx_signature_invalid
+            - docx_structure_invalid
+            - docx_expanded_size_invalid
+            - docx_macro_forbidden
+            - docx_archive_invalid
+            - media_type_unsupported
+            - docx_render_source_hash_mismatch
+            - pdf_encrypted
+            - pdf_parse_failed
+            - pdf_has_no_pages
+            - ocr_page_too_large
+            - ocr_coordinates_invalid
+            - ocr_image_invalid
+            - ocr_unavailable
+            - ocr_timeout
+            - ocr_failed
+            - ocr_output_too_large
+            - ocr_output_invalid
+            - docx_parse_failed
+            - docx_renderer_unavailable
+            - docx_renderer_version_unavailable
+            - docx_renderer_version_unexpected
+            - docx_renderer_environment_invalid
+            - docx_renderer_timeout
+            - docx_renderer_failed
+            - docx_renderer_output_missing
+            - docx_renderer_output_invalid
+            - parse_storage_mismatch
+            - parse_processing_error
+          - type: 'null'
+          title: Parse Error Code
+        parser_version:
+          type: string
+          title: Parser Version
+        warnings:
+          items:
+            type: string
+          type: array
+          title: Warnings
+        case_version:
+          type: integer
+          title: Case Version
+        document_status:
+          type: string
+          enum:
+          - staged
+          - active
+          - superseded
+          - revoked
+          title: Document Status
+        index_status:
+          type: string
+          enum:
+          - missing
+          - queued
+          - running
+          - failed
+          - ready
+          - stale
+          title: Index Status
+        index_error_code:
+          anyOf:
+          - type: string
+            enum:
+            - index_media_unsupported
+            - index_storage_backend_mismatch
+            - index_rendered_source_missing
+            - index_processing_error
+            - index_commit_error
+          - type: 'null'
+          title: Index Error Code
+        selection_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Selection Id
+        selection_status:
+          type: string
+          enum:
+          - not_selected
+          - selected
+          - revoked
+          title: Selection Status
+        authorization_status:
+          type: string
+          enum:
+          - not_authorized
+          - authorized
+          - expired
+          title: Authorization Status
+        amount_authorized:
+          type: boolean
+          title: Amount Authorized
+        authorization_valid_until:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Authorization Valid Until
+        purpose_authorizations:
+          items:
+            $ref: '#/components/schemas/DocumentPurposeAuthorizationResponse'
+          type: array
+          title: Purpose Authorizations
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - document_version_id
+      - case_id
+      - file_name
+      - role
+      - media_type
+      - size_bytes
+      - content_hash
+      - parse_status
+      - parse_error_code
+      - parser_version
+      - warnings
+      - case_version
+      - document_status
+      - index_status
+      - index_error_code
+      - selection_id
+      - selection_status
+      - authorization_status
+      - amount_authorized
+      - authorization_valid_until
+      - purpose_authorizations
+      - created_at
+      title: CaseDocumentResponse
+    CaseLegalEntityHistoryEventResponse:
+      properties:
+        event_id:
+          type: string
+          format: uuid
+          title: Event Id
+        event_type:
+          type: string
+          title: Event Type
+        actor_id:
+          type: string
+          format: uuid
+          title: Actor Id
+        previous_legal_entity_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Previous Legal Entity Id
+        legal_entity_id:
+          type: string
+          format: uuid
+          title: Legal Entity Id
+        reason:
+          type: string
+          title: Reason
+        case_version:
+          type: integer
+          title: Case Version
+        occurred_at:
+          type: string
+          format: date-time
+          title: Occurred At
+        revoked_selection_count:
+          type: integer
+          title: Revoked Selection Count
+        revoked_grant_count:
+          type: integer
+          title: Revoked Grant Count
+        superseded_run_count:
+          type: integer
+          title: Superseded Run Count
+      type: object
+      required:
+      - event_id
+      - event_type
+      - actor_id
+      - previous_legal_entity_id
+      - legal_entity_id
+      - reason
+      - case_version
+      - occurred_at
+      - revoked_selection_count
+      - revoked_grant_count
+      - superseded_run_count
+      title: CaseLegalEntityHistoryEventResponse
+    CaseLegalEntityHistoryResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/CaseLegalEntityHistoryEventResponse'
+          type: array
+          title: Items
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - items
+      - next_cursor
+      title: CaseLegalEntityHistoryResponse
+    CaseListResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/CaseResponse'
+          type: array
+          title: Items
+        total:
+          type: integer
+          title: Total
+        page:
+          type: integer
+          title: Page
+        page_size:
+          type: integer
+          title: Page Size
+      type: object
+      required:
+      - items
+      - total
+      - page
+      - page_size
+      title: CaseListResponse
+    CaseResponse:
+      properties:
+        case_id:
+          type: string
+          format: uuid
+          title: Case Id
+        title:
+          type: string
+          title: Title
+        legal_entity_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Legal Entity Id
+        legal_entity_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Legal Entity Name
+        legal_entity_confirmed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Legal Entity Confirmed At
+        status:
+          type: string
+          title: Status
+        version:
+          type: integer
+          title: Version
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        can_correct_legal_entity:
+          type: boolean
+          title: Can Correct Legal Entity
+          default: false
+      type: object
+      required:
+      - case_id
+      - title
+      - legal_entity_id
+      - legal_entity_confirmed_at
+      - status
+      - version
+      - created_at
+      title: CaseResponse
+    ChangePasswordRequest:
+      properties:
+        current_password:
+          type: string
+          maxLength: 128
+          minLength: 1
+          title: Current Password
+        new_password:
+          type: string
+          maxLength: 128
+          minLength: 12
+          title: New Password
+      additionalProperties: false
+      type: object
+      required:
+      - current_password
+      - new_password
+      title: ChangePasswordRequest
+    CheckResultResponse:
+      properties:
+        result_id:
+          type: string
+          format: uuid
+          title: Result Id
+        task_result_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Task Result Sha256
+        rule_id:
+          type: string
+          title: Rule Id
+        rule_version:
+          type: string
+          title: Rule Version
+        judgment:
+          type: string
+          enum:
+          - passed
+          - issue_found
+          - needs_material
+          - undetermined
+          - not_applicable
+          - human_review
+          title: Judgment
+        severity:
+          type: string
+          enum:
+          - critical
+          - high
+          - medium
+          - low
+          - info
+          - undetermined
+          title: Severity
+        summary:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Summary
+        research_review:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Research Review
+        evidence:
+          items:
+            $ref: '#/components/schemas/EvidenceResponse'
+          type: array
+          title: Evidence
+        slot_candidates:
+          items:
+            $ref: '#/components/schemas/SlotCandidateResponse'
+          type: array
+          title: Slot Candidates
+        fact_candidates:
+          items:
+            $ref: '#/components/schemas/FactCandidateResponse'
+          type: array
+          title: Fact Candidates
+        limitations:
+          items:
+            type: string
+          type: array
+          title: Limitations
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        fact_set_snapshot_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Fact Set Snapshot Id
+        definition_manifest:
+          anyOf:
+          - $ref: '#/components/schemas/ExecutionDefinitionManifest'
+          - type: 'null'
+        execution_trace:
+          anyOf:
+          - $ref: '#/components/schemas/ExecutionTraceSnapshot'
+          - type: 'null'
+        rule_plan_execution:
+          anyOf:
+          - $ref: '#/components/schemas/RulePlanExecutionSnapshot'
+          - type: 'null'
+        dependency_result_references:
+          items:
+            $ref: '#/components/schemas/DependencyResultReference'
+          type: array
+          title: Dependency Result References
+        consumed_dependency_result_references:
+          items:
+            $ref: '#/components/schemas/DependencyResultReference'
+          type: array
+          title: Consumed Dependency Result References
+      additionalProperties: false
+      type: object
+      required:
+      - result_id
+      - task_result_sha256
+      - rule_id
+      - rule_version
+      - judgment
+      - severity
+      - evidence
+      - limitations
+      - created_at
+      title: CheckResultResponse
+    ConfirmCaseLegalEntityRequest:
+      properties:
+        legal_entity_id:
+          type: string
+          format: uuid
+          title: Legal Entity Id
+        expected_case_version:
+          type: integer
+          minimum: 1.0
+          title: Expected Case Version
+        verification_note:
+          type: string
+          maxLength: 500
+          minLength: 1
+          title: Verification Note
+      additionalProperties: false
+      type: object
+      required:
+      - legal_entity_id
+      - expected_case_version
+      - verification_note
+      title: ConfirmCaseLegalEntityRequest
+    ConfirmRunFactsRequest:
+      properties:
+        confirmations:
+          items:
+            $ref: '#/components/schemas/FactConfirmationItem'
+          type: array
+          maxItems: 4
+          minItems: 1
+          title: Confirmations
+        reason:
+          type: string
+          maxLength: 4000
+          minLength: 1
+          title: Reason
+      additionalProperties: false
+      type: object
+      required:
+      - confirmations
+      - reason
+      title: ConfirmRunFactsRequest
+    CorrectCaseLegalEntityRequest:
+      properties:
+        legal_entity_id:
+          type: string
+          format: uuid
+          title: Legal Entity Id
+        expected_case_version:
+          type: integer
+          minimum: 1.0
+          title: Expected Case Version
+        correction_note:
+          type: string
+          maxLength: 500
+          minLength: 1
+          title: Correction Note
+      additionalProperties: false
+      type: object
+      required:
+      - legal_entity_id
+      - expected_case_version
+      - correction_note
+      title: CorrectCaseLegalEntityRequest
+    CreateCaseRequest:
+      properties:
+        title:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Title
+      additionalProperties: false
+      type: object
+      required:
+      - title
+      title: CreateCaseRequest
+    CreateOrganizationUnitRequest:
+      properties:
+        parent_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Parent Id
+        code:
+          type: string
+          maxLength: 64
+          minLength: 1
+          title: Code
+        name:
+          type: string
+          maxLength: 120
+          minLength: 1
+          title: Name
+      additionalProperties: false
+      type: object
+      required:
+      - code
+      - name
+      title: CreateOrganizationUnitRequest
+    CreateUserRequest:
+      properties:
+        username:
+          type: string
+          maxLength: 80
+          minLength: 3
+          title: Username
+        display_name:
+          type: string
+          maxLength: 120
+          minLength: 1
+          title: Display Name
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        role_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          maxItems: 20
+          minItems: 1
+          title: Role Ids
+        initial_password:
+          type: string
+          maxLength: 128
+          minLength: 12
+          title: Initial Password
+      additionalProperties: false
+      type: object
+      required:
+      - username
+      - display_name
+      - organization_id
+      - role_ids
+      - initial_password
+      title: CreateUserRequest
+    DefinitionReference:
+      properties:
+        source_path:
+          type: string
+          title: Source Path
+        source_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Source Sha256
+      additionalProperties: false
+      type: object
+      required:
+      - source_path
+      - source_sha256
+      title: DefinitionReference
+    DependencyGraphRuleReference:
+      properties:
+        check_id:
+          type: string
+          minLength: 1
+          title: Check Id
+        rule_id:
+          type: string
+          minLength: 1
+          title: Rule Id
+        rule_version:
+          type: string
+          minLength: 1
+          title: Rule Version
+        rule_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Rule Sha256
+        dependencies:
+          items:
+            type: string
+          type: array
+          title: Dependencies
+      additionalProperties: false
+      type: object
+      required:
+      - check_id
+      - rule_id
+      - rule_version
+      - rule_sha256
+      - dependencies
+      title: DependencyGraphRuleReference
+    DependencyResultReference:
+      properties:
+        kind:
+          type: string
+          const: dependency_result_reference
+          title: Kind
+        check_id:
+          type: string
+          maxLength: 160
+          minLength: 1
+          title: Check Id
+        dependency_rule_id:
+          type: string
+          maxLength: 160
+          minLength: 1
+          title: Dependency Rule Id
+        dependency_rule_version:
+          type: string
+          maxLength: 64
+          minLength: 1
+          title: Dependency Rule Version
+        dependency_rule_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Dependency Rule Sha256
+        definition_manifest_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Definition Manifest Sha256
+        case_id:
+          type: string
+          format: uuid
+          title: Case Id
+        input_snapshot_id:
+          type: string
+          format: uuid
+          title: Input Snapshot Id
+        fact_set_snapshot_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Fact Set Snapshot Id
+        source_run_id:
+          type: string
+          format: uuid
+          title: Source Run Id
+        result_id:
+          type: string
+          format: uuid
+          title: Result Id
+        task_result_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Task Result Sha256
+        assessment_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Assessment Sha256
+        evidence_manifest_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Evidence Manifest Sha256
+        observed_judgment:
+          type: string
+          enum:
+          - passed
+          - issue_found
+          - needs_material
+          - undetermined
+          - not_applicable
+          - human_review
+          title: Observed Judgment
+        assessment_status:
+          type: string
+          enum:
+          - not_applicable
+          - blocked
+          - undetermined
+          - incomplete
+          - needs_material
+          - human_review
+          title: Assessment Status
+        is_completion_proof:
+          type: boolean
+          const: false
+          title: Is Completion Proof
+        reference_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Reference Sha256
+      additionalProperties: false
+      type: object
+      required:
+      - kind
+      - check_id
+      - dependency_rule_id
+      - dependency_rule_version
+      - dependency_rule_sha256
+      - definition_manifest_sha256
+      - case_id
+      - input_snapshot_id
+      - fact_set_snapshot_id
+      - source_run_id
+      - result_id
+      - task_result_sha256
+      - assessment_sha256
+      - evidence_manifest_sha256
+      - observed_judgment
+      - assessment_status
+      - is_completion_proof
+      - reference_sha256
+      title: DependencyResultReference
+      description: Content-addressed reference to a RulePlan assessment, never a completion proof.
+    DevelopmentDependencyGraph:
+      properties:
+        kind:
+          type: string
+          const: development_rule_dependency_graph
+          title: Kind
+        status:
+          type: string
+          enum:
+          - blocked
+          - graph_resolved
+          title: Status
+        definitions:
+          items:
+            $ref: '#/components/schemas/DependencyGraphRuleReference'
+          type: array
+          title: Definitions
+        execution_order:
+          items:
+            type: string
+          type: array
+          title: Execution Order
+        blockers:
+          items:
+            type: string
+          type: array
+          title: Blockers
+        graph_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Graph Sha256
+        is_execution_proof:
+          type: boolean
+          const: false
+          title: Is Execution Proof
+        is_approval_record:
+          type: boolean
+          const: false
+          title: Is Approval Record
+      additionalProperties: false
+      type: object
+      required:
+      - kind
+      - status
+      - definitions
+      - execution_order
+      - blockers
+      - graph_sha256
+      - is_execution_proof
+      - is_approval_record
+      title: DevelopmentDependencyGraph
+    DevelopmentSkillReference:
+      properties:
+        source_path:
+          type: string
+          title: Source Path
+        source_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Source Sha256
+        generator_version:
+          type: string
+          maxLength: 64
+          minLength: 1
+          title: Generator Version
+        status:
+          type: string
+          const: development_candidate
+          title: Status
+        rule_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Rule Sha256
+        tool_contract_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Tool Contract Sha256
+        output_schema_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Output Schema Sha256
+        publication_blockers:
+          items:
+            type: string
+          type: array
+          title: Publication Blockers
+        generated_at:
+          type: string
+          pattern: ^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{1,6})?\+00:00$
+          title: Generated At
+      additionalProperties: false
+      type: object
+      required:
+      - source_path
+      - source_sha256
+      - generator_version
+      - status
+      - rule_sha256
+      - tool_contract_sha256
+      - output_schema_sha256
+      - publication_blockers
+      - generated_at
+      title: DevelopmentSkillReference
+    DocumentAccessEventPageResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/DocumentAccessEventResponse'
+          type: array
+          title: Items
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - items
+      title: DocumentAccessEventPageResponse
+    DocumentAccessEventResponse:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        case_id:
+          type: string
+          format: uuid
+          title: Case Id
+        document_version_id:
+          type: string
+          format: uuid
+          title: Document Version Id
+        file_name:
+          type: string
+          title: File Name
+        selection_id:
+          type: string
+          format: uuid
+          title: Selection Id
+        actor_id:
+          type: string
+          format: uuid
+          title: Actor Id
+        action:
+          type: string
+          enum:
+          - selection_granted
+          - selection_revoked
+          title: Action
+        permissions:
+          items:
+            $ref: '#/components/schemas/DocumentAccessPermissionResponse'
+          type: array
+          title: Permissions
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
+        case_version:
+          type: integer
+          title: Case Version
+        invalidated_run_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Invalidated Run Ids
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - id
+      - case_id
+      - document_version_id
+      - file_name
+      - selection_id
+      - actor_id
+      - action
+      - permissions
+      - reason
+      - case_version
+      - invalidated_run_ids
+      - created_at
+      title: DocumentAccessEventResponse
+    DocumentAccessPermissionResponse:
+      properties:
+        actor_id:
+          type: string
+          format: uuid
+          title: Actor Id
+        purpose:
+          type: string
+          enum:
+          - contract_review
+          - upstream_comparison
+          title: Purpose
+        allow_text:
+          type: boolean
+          title: Allow Text
+        allow_amount:
+          type: boolean
+          title: Allow Amount
+        valid_until:
+          type: string
+          format: date-time
+          title: Valid Until
+      type: object
+      required:
+      - actor_id
+      - purpose
+      - allow_text
+      - allow_amount
+      - valid_until
+      title: DocumentAccessPermissionResponse
+    DocumentPurposeAuthorizationResponse:
+      properties:
+        purpose:
+          type: string
+          enum:
+          - contract_review
+          - upstream_comparison
+          title: Purpose
+        allow_text:
+          type: boolean
+          title: Allow Text
+        allow_amount:
+          type: boolean
+          title: Allow Amount
+        valid_until:
+          type: string
+          format: date-time
+          title: Valid Until
+        status:
+          type: string
+          enum:
+          - authorized
+          - expired
+          title: Status
+      type: object
+      required:
+      - purpose
+      - allow_text
+      - allow_amount
+      - valid_until
+      - status
+      title: DocumentPurposeAuthorizationResponse
+    EntityCorrectionContextResponse:
+      properties:
+        case_id:
+          type: string
+          format: uuid
+          title: Case Id
+        legal_entity_id:
+          type: string
+          format: uuid
+          title: Legal Entity Id
+        version:
+          type: integer
+          title: Version
+      type: object
+      required:
+      - case_id
+      - legal_entity_id
+      - version
+      title: EntityCorrectionContextResponse
+    EntityCorrectionQueueItem:
+      properties:
+        case_id:
+          type: string
+          format: uuid
+          title: Case Id
+        title:
+          type: string
+          title: Title
+        legal_entity_id:
+          type: string
+          format: uuid
+          title: Legal Entity Id
+        version:
+          type: integer
+          title: Version
+      type: object
+      required:
+      - case_id
+      - title
+      - legal_entity_id
+      - version
+      title: EntityCorrectionQueueItem
+    EntityCorrectionQueueResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/EntityCorrectionQueueItem'
+          type: array
+          title: Items
+        total:
+          type: integer
+          title: Total
+        page:
+          type: integer
+          title: Page
+        page_size:
+          type: integer
+          title: Page Size
+      type: object
+      required:
+      - items
+      - total
+      - page
+      - page_size
+      title: EntityCorrectionQueueResponse
+    EvidenceResponse:
+      properties:
+        evidence_id:
+          type: string
+          format: uuid
+          title: Evidence Id
+        kind:
+          type: string
+          enum:
+          - document_span
+          - source_record
+          - calculation
+          - normative_reference
+          - human_confirmation
+          - absence_evidence
+          title: Kind
+        support:
+          type: string
+          enum:
+          - direct
+          - corroborating
+          - context
+          - contradicting
+          title: Support
+        source_version:
+          type: string
+          title: Source Version
+        document_version_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Document Version Id
+        page:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Page
+        start_offset:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Start Offset
+        end_offset:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: End Offset
+        quote:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Quote
+        text_hash:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Text Hash
+        source_record_ref:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Record Ref
+      additionalProperties: false
+      type: object
+      required:
+      - evidence_id
+      - kind
+      - support
+      - source_version
+      title: EvidenceResponse
+    ExecutionDefinitionManifest:
+      properties:
+        kind:
+          type: string
+          const: development_execution_definitions
+          title: Kind
+        rule:
+          $ref: '#/components/schemas/RuleDefinitionReference'
+        skill:
+          $ref: '#/components/schemas/DevelopmentSkillReference'
+        prompt:
+          anyOf:
+          - $ref: '#/components/schemas/DefinitionReference'
+          - type: 'null'
+        user_prompt:
+          $ref: '#/components/schemas/DefinitionReference'
+        tool_contract:
+          anyOf:
+          - $ref: '#/components/schemas/DefinitionReference'
+          - type: 'null'
+        output_contract:
+          $ref: '#/components/schemas/DefinitionReference'
+        model:
+          anyOf:
+          - $ref: '#/components/schemas/DefinitionReference'
+          - type: 'null'
+        implementation_bundle:
+          $ref: '#/components/schemas/ImplementationBundleReference'
+        knowledge_sources:
+          $ref: '#/components/schemas/KnowledgeSourceReferences'
+        dependency_graph:
+          $ref: '#/components/schemas/DevelopmentDependencyGraph'
+        manifest_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Manifest Sha256
+      additionalProperties: false
+      type: object
+      required:
+      - kind
+      - rule
+      - skill
+      - user_prompt
+      - output_contract
+      - implementation_bundle
+      - knowledge_sources
+      - dependency_graph
+      - manifest_sha256
+      title: ExecutionDefinitionManifest
+    ExecutionTraceEvent:
+      properties:
+        sequence:
+          type: integer
+          minimum: 1.0
+          title: Sequence
+        event_type:
+          type: string
+          enum:
+          - model_request
+          - model_response
+          - tool_exchange
+          title: Event Type
+        payload_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Payload Sha256
+        payload_bytes:
+          type: integer
+          maximum: 2000000.0
+          minimum: 0.0
+          title: Payload Bytes
+        previous_event_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Previous Event Sha256
+        input_tokens:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Input Tokens
+        output_tokens:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Output Tokens
+        event_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Event Sha256
+      additionalProperties: false
+      type: object
+      required:
+      - sequence
+      - event_type
+      - payload_sha256
+      - payload_bytes
+      - previous_event_sha256
+      - event_sha256
+      title: ExecutionTraceEvent
+    ExecutionTraceSnapshot:
+      properties:
+        schema_version:
+          type: integer
+          const: 1
+          title: Schema Version
+          default: 1
+        events:
+          items:
+            $ref: '#/components/schemas/ExecutionTraceEvent'
+          type: array
+          maxItems: 32
+          title: Events
+        trace_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Trace Sha256
+        model_usage:
+          anyOf:
+          - $ref: '#/components/schemas/ModelUsageSummary'
+          - type: 'null'
+      additionalProperties: false
+      type: object
+      required:
+      - events
+      - trace_sha256
+      title: ExecutionTraceSnapshot
+    FactCandidateResponse:
+      properties:
+        predicate:
+          type: string
+          enum:
+          - contract.contract_type
+          - contract.party_role
+          - contract.jurisdiction
+          - contract.total_amount
+          title: Predicate
+        state:
+          type: string
+          enum:
+          - candidate
+          - undetermined
+          title: State
+        value:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Value
+        evidence_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Evidence Ids
+      additionalProperties: false
+      type: object
+      required:
+      - predicate
+      - state
+      - value
+      - evidence_ids
+      title: FactCandidateResponse
+    FactConfirmationItem:
+      properties:
+        predicate:
+          type: string
+          enum:
+          - contract.contract_type
+          - contract.party_role
+          - contract.jurisdiction
+          - contract.total_amount
+          title: Predicate
+        value:
+          type: string
+          maxLength: 500
+          minLength: 1
+          title: Value
+        evidence_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          maxItems: 3
+          minItems: 1
+          title: Evidence Ids
+      additionalProperties: false
+      type: object
+      required:
+      - predicate
+      - value
+      - evidence_ids
+      title: FactConfirmationItem
+    FactReviewDecisionRequest:
+      properties:
+        version:
+          type: integer
+          minimum: 1.0
+          title: Version
+        decision:
+          type: string
+          enum:
+          - confirm_fact
+          - record_review
+          - request_material
+          title: Decision
+        reason:
+          type: string
+          maxLength: 4000
+          minLength: 1
+          title: Reason
+      additionalProperties: false
+      type: object
+      required:
+      - version
+      - decision
+      - reason
+      title: FactReviewDecisionRequest
+    FactSetSnapshotResponse:
+      properties:
+        fact_set_snapshot_id:
+          type: string
+          format: uuid
+          title: Fact Set Snapshot Id
+        case_id:
+          type: string
+          format: uuid
+          title: Case Id
+        input_snapshot_id:
+          type: string
+          format: uuid
+          title: Input Snapshot Id
+        source_run_id:
+          type: string
+          format: uuid
+          title: Source Run Id
+        version:
+          type: integer
+          title: Version
+        facts:
+          additionalProperties: true
+          type: object
+          title: Facts
+        content_hash:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Content Hash
+        created_by:
+          type: string
+          format: uuid
+          title: Created By
+        reason:
+          type: string
+          title: Reason
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      additionalProperties: false
+      type: object
+      required:
+      - fact_set_snapshot_id
+      - case_id
+      - input_snapshot_id
+      - source_run_id
+      - version
+      - facts
+      - content_hash
+      - created_by
+      - reason
+      - created_at
+      title: FactSetSnapshotResponse
+    FreezeRequest:
+      properties:
+        purpose:
+          type: string
+          enum:
+          - contract_review
+          - upstream_comparison
+          title: Purpose
+        task_requires_amount:
+          type: boolean
+          title: Task Requires Amount
+          default: false
+        preview_id:
+          type: string
+          format: uuid
+          title: Preview Id
+        expected_case_version:
+          type: integer
+          minimum: 1.0
+          title: Expected Case Version
+        manifest_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Manifest Sha256
+      additionalProperties: false
+      type: object
+      required:
+      - purpose
+      - preview_id
+      - expected_case_version
+      - manifest_sha256
+      title: FreezeRequest
+    FrozenInputResponse:
+      properties:
+        input_snapshot_id:
+          type: string
+          format: uuid
+          title: Input Snapshot Id
+        case_id:
+          type: string
+          format: uuid
+          title: Case Id
+        purpose:
+          type: string
+          enum:
+          - contract_review
+          - upstream_comparison
+          title: Purpose
+        case_version:
+          type: integer
+          title: Case Version
+        manifest_sha256:
+          type: string
+          title: Manifest Sha256
+        document_version_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Document Version Ids
+      type: object
+      required:
+      - input_snapshot_id
+      - case_id
+      - purpose
+      - case_version
+      - manifest_sha256
+      - document_version_ids
+      title: FrozenInputResponse
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    HealthStatus:
+      properties:
+        status:
+          type: string
+          title: Status
+      type: object
+      required:
+      - status
+      title: HealthStatus
+    HumanTaskListResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/HumanTaskResponse'
+          type: array
+          title: Items
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - items
+      title: HumanTaskListResponse
+    HumanTaskResponse:
+      properties:
+        task_id:
+          type: string
+          format: uuid
+          title: Task Id
+        case_id:
+          type: string
+          format: uuid
+          title: Case Id
+        run_id:
+          type: string
+          format: uuid
+          title: Run Id
+        type:
+          type: string
+          enum:
+          - fact_review
+          - price_review
+          title: Type
+        status:
+          type: string
+          enum:
+          - open
+          - completed
+          - cancelled
+          - superseded
+          title: Status
+        title:
+          type: string
+          title: Title
+        reason:
+          type: string
+          title: Reason
+        required_role:
+          type: string
+          title: Required Role
+        decision:
+          anyOf:
+          - type: string
+            enum:
+            - confirm_fact
+            - record_review
+            - request_material
+          - type: 'null'
+          title: Decision
+        version:
+          type: integer
+          title: Version
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      additionalProperties: false
+      type: object
+      required:
+      - task_id
+      - case_id
+      - run_id
+      - type
+      - status
+      - title
+      - reason
+      - required_role
+      - decision
+      - version
+      - created_at
+      title: HumanTaskResponse
+    ImplementationBundleReference:
+      properties:
+        source_tree_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Source Tree Sha256
+        source_file_count:
+          type: integer
+          minimum: 1.0
+          title: Source File Count
+        dependency_lock_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Dependency Lock Sha256
+        project_config_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Project Config Sha256
+        python_version:
+          type: string
+          maxLength: 32
+          minLength: 1
+          title: Python Version
+      additionalProperties: false
+      type: object
+      required:
+      - source_tree_sha256
+      - source_file_count
+      - dependency_lock_sha256
+      - project_config_sha256
+      - python_version
+      title: ImplementationBundleReference
+    KnowledgeSourceReferences:
+      properties:
+        legal_normative_refs:
+          items:
+            type: string
+          type: array
+          title: Legal Normative Refs
+        enterprise_position_refs:
+          items:
+            type: string
+          type: array
+          title: Enterprise Position Refs
+        content_binding:
+          type: string
+          const: unresolved_development_references
+          title: Content Binding
+      additionalProperties: false
+      type: object
+      required:
+      - legal_normative_refs
+      - enterprise_position_refs
+      - content_binding
+      title: KnowledgeSourceReferences
+    LegalEntityListResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/LegalEntityResponse'
+          type: array
+          title: Items
+        total:
+          type: integer
+          title: Total
+        page:
+          type: integer
+          title: Page
+        page_size:
+          type: integer
+          title: Page Size
+      type: object
+      required:
+      - items
+      - total
+      - page
+      - page_size
+      title: LegalEntityListResponse
+    LegalEntityRequest:
+      properties:
+        legal_name:
+          type: string
+          maxLength: 255
+          minLength: 1
+          title: Legal Name
+        unified_social_credit_code:
+          anyOf:
+          - type: string
+            maxLength: 32
+          - type: 'null'
+          title: Unified Social Credit Code
+        verification_basis:
+          type: string
+          maxLength: 2000
+          minLength: 1
+          title: Verification Basis
+        is_active:
+          type: boolean
+          title: Is Active
+          default: true
+      additionalProperties: false
+      type: object
+      required:
+      - legal_name
+      - verification_basis
+      title: LegalEntityRequest
+    LegalEntityResponse:
+      properties:
+        legal_entity_id:
+          type: string
+          format: uuid
+          title: Legal Entity Id
+        legal_name:
+          type: string
+          title: Legal Name
+        unified_social_credit_code:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Unified Social Credit Code
+        verification_basis:
+          type: string
+          title: Verification Basis
+        is_active:
+          type: boolean
+          title: Is Active
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+      type: object
+      required:
+      - legal_entity_id
+      - legal_name
+      - unified_social_credit_code
+      - verification_basis
+      - is_active
+      - created_at
+      - updated_at
+      title: LegalEntityResponse
+    LoginRequest:
+      properties:
+        username:
+          type: string
+          maxLength: 80
+          minLength: 3
+          title: Username
+        password:
+          type: string
+          maxLength: 128
+          minLength: 1
+          title: Password
+      additionalProperties: false
+      type: object
+      required:
+      - username
+      - password
+      title: LoginRequest
+    ModelUsageSummary:
+      properties:
+        model_responses:
+          type: integer
+          minimum: 1.0
+          title: Model Responses
+        usage_reports:
+          type: integer
+          minimum: 0.0
+          title: Usage Reports
+        input_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Input Tokens
+        output_tokens:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Output Tokens
+        complete:
+          type: boolean
+          title: Complete
+      additionalProperties: false
+      type: object
+      required:
+      - model_responses
+      - usage_reports
+      - complete
+      title: ModelUsageSummary
+    OrganizationUnitListResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/OrganizationUnitView'
+          type: array
+          title: Items
+      type: object
+      required:
+      - items
+      title: OrganizationUnitListResponse
+    OrganizationUnitView:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        parent_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Parent Id
+        code:
+          type: string
+          title: Code
+        name:
+          type: string
+          title: Name
+        is_active:
+          type: boolean
+          title: Is Active
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+      type: object
+      required:
+      - id
+      - parent_id
+      - code
+      - name
+      - is_active
+      - created_at
+      title: OrganizationUnitView
+    ParsedDocumentArtifactResponse:
+      properties:
+        source_sha256:
+          type: string
+          title: Source Sha256
+        media_type:
+          type: string
+          title: Media Type
+        parser_version:
+          type: string
+          title: Parser Version
+        index_source_sha256:
+          type: string
+          title: Index Source Sha256
+        renderer_identity:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Renderer Identity
+        pages:
+          items:
+            type: string
+          type: array
+          title: Pages
+        blocks:
+          items:
+            $ref: '#/components/schemas/ParsedTextBlockResponse'
+          type: array
+          title: Blocks
+        warnings:
+          items:
+            type: string
+          type: array
+          title: Warnings
+      type: object
+      required:
+      - source_sha256
+      - media_type
+      - parser_version
+      - index_source_sha256
+      - renderer_identity
+      - pages
+      - blocks
+      - warnings
+      title: ParsedDocumentArtifactResponse
+    ParsedTextBlockResponse:
+      properties:
+        page:
+          type: integer
+          title: Page
+        text:
+          type: string
+          title: Text
+        start_offset:
+          type: integer
+          title: Start Offset
+        end_offset:
+          type: integer
+          title: End Offset
+        bbox:
+          anyOf:
+          - prefixItems:
+            - type: number
+            - type: number
+            - type: number
+            - type: number
+            type: array
+            maxItems: 4
+            minItems: 4
+          - type: 'null'
+          title: Bbox
+        kind:
+          type: string
+          enum:
+          - paragraph
+          - table
+          - ocr
+          title: Kind
+        confidence:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Confidence
+      type: object
+      required:
+      - page
+      - text
+      - start_offset
+      - end_offset
+      - bbox
+      - kind
+      - confidence
+      title: ParsedTextBlockResponse
+    PermissionView:
+      properties:
+        key:
+          type: string
+          title: Key
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+      type: object
+      required:
+      - key
+      - name
+      - description
+      title: PermissionView
+    PreviewRequest:
+      properties:
+        purpose:
+          type: string
+          enum:
+          - contract_review
+          - upstream_comparison
+          title: Purpose
+        task_requires_amount:
+          type: boolean
+          title: Task Requires Amount
+          default: false
+      additionalProperties: false
+      type: object
+      required:
+      - purpose
+      title: PreviewRequest
+    PreviewResponse:
+      properties:
+        preview_id:
+          type: string
+          format: uuid
+          title: Preview Id
+        case_id:
+          type: string
+          format: uuid
+          title: Case Id
+        purpose:
+          type: string
+          enum:
+          - contract_review
+          - upstream_comparison
+          title: Purpose
+        case_version:
+          type: integer
+          title: Case Version
+        manifest_sha256:
+          type: string
+          title: Manifest Sha256
+        items:
+          items:
+            $ref: '#/components/schemas/SourceItemResponse'
+          type: array
+          title: Items
+      type: object
+      required:
+      - preview_id
+      - case_id
+      - purpose
+      - case_version
+      - manifest_sha256
+      - items
+      title: PreviewResponse
+    RemoveCaseDocumentRequest:
+      properties:
+        expected_case_version:
+          type: integer
+          minimum: 1.0
+          title: Expected Case Version
+        reason:
+          type: string
+          maxLength: 500
+          minLength: 1
+          title: Reason
+      additionalProperties: false
+      type: object
+      required:
+      - expected_case_version
+      - reason
+      title: RemoveCaseDocumentRequest
+    RemovedDocumentResponse:
+      properties:
+        document_version_id:
+          type: string
+          format: uuid
+          title: Document Version Id
+        case_id:
+          type: string
+          format: uuid
+          title: Case Id
+        case_version:
+          type: integer
+          title: Case Version
+        removed_at:
+          type: string
+          format: date-time
+          title: Removed At
+        revoked_selection_count:
+          type: integer
+          title: Revoked Selection Count
+        revoked_grant_count:
+          type: integer
+          title: Revoked Grant Count
+        invalidated_run_count:
+          type: integer
+          title: Invalidated Run Count
+      type: object
+      required:
+      - document_version_id
+      - case_id
+      - case_version
+      - removed_at
+      - revoked_selection_count
+      - revoked_grant_count
+      - invalidated_run_count
+      title: RemovedDocumentResponse
+    RevokeDocumentSelectionRequest:
+      properties:
+        expected_case_version:
+          type: integer
+          minimum: 1.0
+          title: Expected Case Version
+        reason:
+          type: string
+          maxLength: 500
+          minLength: 1
+          title: Reason
+      additionalProperties: false
+      type: object
+      required:
+      - expected_case_version
+      - reason
+      title: RevokeDocumentSelectionRequest
+    RevokedDocumentSelectionResponse:
+      properties:
+        selection_id:
+          type: string
+          format: uuid
+          title: Selection Id
+        document_version_id:
+          type: string
+          format: uuid
+          title: Document Version Id
+        case_id:
+          type: string
+          format: uuid
+          title: Case Id
+        case_version:
+          type: integer
+          title: Case Version
+        revoked_at:
+          type: string
+          format: date-time
+          title: Revoked At
+        revoked_grant_count:
+          type: integer
+          title: Revoked Grant Count
+        invalidated_run_count:
+          type: integer
+          title: Invalidated Run Count
+      type: object
+      required:
+      - selection_id
+      - document_version_id
+      - case_id
+      - case_version
+      - revoked_at
+      - revoked_grant_count
+      - invalidated_run_count
+      title: RevokedDocumentSelectionResponse
+    RoleListResponse:
+      properties:
+        roles:
+          items:
+            $ref: '#/components/schemas/RoleView'
+          type: array
+          title: Roles
+        permissions:
+          items:
+            $ref: '#/components/schemas/PermissionView'
+          type: array
+          title: Permissions
+      type: object
+      required:
+      - roles
+      - permissions
+      title: RoleListResponse
+    RoleRequest:
+      properties:
+        name:
+          type: string
+          maxLength: 120
+          minLength: 1
+          title: Name
+        description:
+          type: string
+          maxLength: 500
+          title: Description
+          default: ''
+        permissions:
+          items:
+            type: string
+          type: array
+          maxItems: 10
+          minItems: 1
+          title: Permissions
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - permissions
+      title: RoleRequest
+    RoleView:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        role_key:
+          type: string
+          title: Role Key
+        name:
+          type: string
+          title: Name
+        description:
+          type: string
+          title: Description
+        is_system:
+          type: boolean
+          title: Is System
+        is_active:
+          type: boolean
+          title: Is Active
+        permissions:
+          items:
+            type: string
+          type: array
+          title: Permissions
+      type: object
+      required:
+      - id
+      - role_key
+      - name
+      - description
+      - is_system
+      - is_active
+      - permissions
+      title: RoleView
+    RuleDefinitionReference:
+      properties:
+        source_path:
+          type: string
+          title: Source Path
+        source_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Source Sha256
+        rule_id:
+          type: string
+          title: Rule Id
+        version:
+          type: string
+          title: Version
+        knowledge_domain:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Knowledge Domain
+        basis_kind:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Basis Kind
+        applicable_time_basis:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Applicable Time Basis
+        review_owner_role:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Review Owner Role
+      additionalProperties: false
+      type: object
+      required:
+      - source_path
+      - source_sha256
+      - rule_id
+      - version
+      title: RuleDefinitionReference
+    RulePlanExecutionSnapshot:
+      properties:
+        kind:
+          type: string
+          const: rule_plan_assessment
+          title: Kind
+        input_snapshot_id:
+          type: string
+          format: uuid
+          title: Input Snapshot Id
+        fact_set_snapshot_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Fact Set Snapshot Id
+        rule_id:
+          type: string
+          maxLength: 160
+          minLength: 1
+          title: Rule Id
+        rule_version:
+          type: string
+          maxLength: 64
+          minLength: 1
+          title: Rule Version
+        rule_source_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Rule Source Sha256
+        plan_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Plan Sha256
+        facts_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Facts Sha256
+        assessment_status:
+          type: string
+          enum:
+          - not_applicable
+          - blocked
+          - undetermined
+          - incomplete
+          - needs_material
+          - human_review
+          title: Assessment Status
+        blocked_by_checks:
+          items:
+            type: string
+          type: array
+          maxItems: 100
+          title: Blocked By Checks
+        missing_slots:
+          items:
+            type: string
+          type: array
+          maxItems: 100
+          title: Missing Slots
+        unresolved_minimum_judgment_indexes:
+          items:
+            type: integer
+          type: array
+          maxItems: 100
+          title: Unresolved Minimum Judgment Indexes
+        is_dependency_completion_proof:
+          type: boolean
+          const: false
+          title: Is Dependency Completion Proof
+        assessment_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Assessment Sha256
+      additionalProperties: false
+      type: object
+      required:
+      - kind
+      - input_snapshot_id
+      - fact_set_snapshot_id
+      - rule_id
+      - rule_version
+      - rule_source_sha256
+      - plan_sha256
+      - facts_sha256
+      - assessment_status
+      - blocked_by_checks
+      - missing_slots
+      - unresolved_minimum_judgment_indexes
+      - is_dependency_completion_proof
+      - assessment_sha256
+      title: RulePlanExecutionSnapshot
+      description: Bind a deterministic RuleRun assessment to its frozen inputs and definition.
+    RunListResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/RunResponse'
+          type: array
+          title: Items
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+      type: object
+      required:
+      - items
+      title: RunListResponse
+    RunModelUsageSummary:
+      properties:
+        model_requests:
+          type: integer
+          minimum: 0.0
+          title: Model Requests
+        model_responses:
+          type: integer
+          minimum: 0.0
+          title: Model Responses
+        usage_reports:
+          type: integer
+          minimum: 0.0
+          title: Usage Reports
+        input_tokens:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Input Tokens
+        output_tokens:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Output Tokens
+        complete:
+          type: boolean
+          title: Complete
+      additionalProperties: false
+      type: object
+      required:
+      - model_requests
+      - model_responses
+      - usage_reports
+      - complete
+      title: RunModelUsageSummary
+      description: Aggregate provider-reported usage across all persisted run attempts.
+    RunResponse:
+      properties:
+        run_id:
+          type: string
+          format: uuid
+          title: Run Id
+        case_id:
+          type: string
+          format: uuid
+          title: Case Id
+        input_snapshot_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Input Snapshot Id
+        status:
+          type: string
+          enum:
+          - queued
+          - running
+          - waiting
+          - completed
+          - failed
+          - cancelled
+          - superseded
+          title: Status
+        version:
+          type: integer
+          title: Version
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        task_type:
+          anyOf:
+          - type: string
+            enum:
+            - contract_review
+            - upstream_comparison
+          - type: 'null'
+          title: Task Type
+      additionalProperties: false
+      type: object
+      required:
+      - run_id
+      - case_id
+      - input_snapshot_id
+      - status
+      - version
+      - created_at
+      title: RunResponse
+    RunResultsResponse:
+      properties:
+        run:
+          $ref: '#/components/schemas/RunResponse'
+        results:
+          items:
+            $ref: '#/components/schemas/CheckResultResponse'
+          type: array
+          title: Results
+        reported_model_usage:
+          anyOf:
+          - $ref: '#/components/schemas/RunModelUsageSummary'
+          - type: 'null'
+        can_confirm_facts:
+          type: boolean
+          title: Can Confirm Facts
+          default: false
+      additionalProperties: false
+      type: object
+      required:
+      - run
+      - results
+      title: RunResultsResponse
+    SelectDocumentRequest:
+      properties:
+        document_version_id:
+          type: string
+          format: uuid
+          title: Document Version Id
+        relation:
+          type: string
+          enum:
+          - main
+          - attachment
+          - upstream
+          title: Relation
+        purpose:
+          type: string
+          enum:
+          - contract_review
+          - upstream_comparison
+          title: Purpose
+          default: contract_review
+        confirm_project_relation:
+          type: boolean
+          title: Confirm Project Relation
+          default: false
+        allow_amount:
+          type: boolean
+          title: Allow Amount
+        valid_until:
+          type: string
+          format: date-time
+          title: Valid Until
+      additionalProperties: false
+      type: object
+      required:
+      - document_version_id
+      - relation
+      - allow_amount
+      - valid_until
+      title: SelectDocumentRequest
+    SelectedDocumentResponse:
+      properties:
+        selection_id:
+          type: string
+          format: uuid
+          title: Selection Id
+        grant_id:
+          type: string
+          format: uuid
+          title: Grant Id
+        document_version_id:
+          type: string
+          format: uuid
+          title: Document Version Id
+        case_id:
+          type: string
+          format: uuid
+          title: Case Id
+        relation:
+          type: string
+          enum:
+          - main
+          - attachment
+          - upstream
+          title: Relation
+        purpose:
+          type: string
+          enum:
+          - contract_review
+          - upstream_comparison
+          title: Purpose
+        allow_text:
+          type: boolean
+          const: true
+          title: Allow Text
+          default: true
+        allow_amount:
+          type: boolean
+          title: Allow Amount
+        valid_until:
+          type: string
+          format: date-time
+          title: Valid Until
+        case_version:
+          type: integer
+          title: Case Version
+      type: object
+      required:
+      - selection_id
+      - grant_id
+      - document_version_id
+      - case_id
+      - relation
+      - purpose
+      - allow_amount
+      - valid_until
+      - case_version
+      title: SelectedDocumentResponse
+    SlotCandidateResponse:
+      properties:
+        slot_id:
+          type: string
+          title: Slot Id
+        state:
+          type: string
+          enum:
+          - filled
+          - needs_material
+          - conflicted
+          - undetermined
+          - human_review
+          title: State
+        value:
+          title: Value
+        fact_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Fact Type
+        evidence_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          title: Evidence Ids
+      additionalProperties: false
+      type: object
+      required:
+      - slot_id
+      - state
+      - value
+      - evidence_ids
+      title: SlotCandidateResponse
+    SourceItemResponse:
+      properties:
+        selection_id:
+          type: string
+          format: uuid
+          title: Selection Id
+        relation:
+          type: string
+          title: Relation
+        status:
+          type: string
+          enum:
+          - ready
+          - no_permission
+          - version_unavailable
+          - wrong_legal_entity
+          - invalid_relation
+          - relation_unverified
+          - restricted_amount
+          - index_unavailable
+          - parse_pending
+          - parse_failed
+          title: Status
+        document_version_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Document Version Id
+        source_sha256:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Source Sha256
+      type: object
+      required:
+      - selection_id
+      - relation
+      - status
+      title: SourceItemResponse
+    StartRunRequest:
+      properties:
+        input_snapshot_id:
+          type: string
+          format: uuid
+          title: Input Snapshot Id
+        dependency_source_run_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Dependency Source Run Id
+      additionalProperties: false
+      type: object
+      required:
+      - input_snapshot_id
+      title: StartRunRequest
+    UpdateOrganizationUnitRequest:
+      properties:
+        parent_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Parent Id
+        name:
+          type: string
+          maxLength: 120
+          minLength: 1
+          title: Name
+        code:
+          type: string
+          maxLength: 64
+          minLength: 1
+          title: Code
+      additionalProperties: false
+      type: object
+      required:
+      - name
+      - code
+      title: UpdateOrganizationUnitRequest
+    UpdateUserRequest:
+      properties:
+        display_name:
+          type: string
+          maxLength: 120
+          minLength: 1
+          title: Display Name
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        role_ids:
+          items:
+            type: string
+            format: uuid
+          type: array
+          maxItems: 20
+          minItems: 1
+          title: Role Ids
+        is_active:
+          type: boolean
+          title: Is Active
+        new_password:
+          anyOf:
+          - type: string
+            maxLength: 128
+            minLength: 12
+          - type: 'null'
+          title: New Password
+      additionalProperties: false
+      type: object
+      required:
+      - display_name
+      - organization_id
+      - role_ids
+      - is_active
+      title: UpdateUserRequest
+    UploadedDocumentResponse:
+      properties:
+        document_version_id:
+          type: string
+          format: uuid
+          title: Document Version Id
+        case_id:
+          type: string
+          format: uuid
+          title: Case Id
+        file_name:
+          type: string
+          title: File Name
+        role:
+          type: string
+          enum:
+          - primary_contract
+          - attachment
+          - customer_contract
+          title: Role
+        media_type:
+          type: string
+          title: Media Type
+        size_bytes:
+          type: integer
+          title: Size Bytes
+        content_hash:
+          type: string
+          title: Content Hash
+        parse_status:
+          type: string
+          enum:
+          - queued
+          - processing
+          - completed
+          - needs_material
+          - failed
+          title: Parse Status
+        parser_version:
+          type: string
+          title: Parser Version
+        parsed_hash:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Parsed Hash
+        warnings:
+          items:
+            type: string
+          type: array
+          title: Warnings
+        case_version:
+          type: integer
+          title: Case Version
+        document_status:
+          type: string
+          enum:
+          - staged
+          - active
+          title: Document Status
+        authorization_status:
+          type: string
+          const: not_granted_by_upload
+          title: Authorization Status
+      type: object
+      required:
+      - document_version_id
+      - case_id
+      - file_name
+      - role
+      - media_type
+      - size_bytes
+      - content_hash
+      - parse_status
+      - parser_version
+      - parsed_hash
+      - warnings
+      - case_version
+      - document_status
+      - authorization_status
+      title: UploadedDocumentResponse
+    UpstreamComparisonCategoryResponse:
+      properties:
+        category:
+          type: string
+          title: Category
+        state:
+          type: string
+          enum:
+          - candidate
+          - needs_material
+          - undetermined
+          - human_review
+          title: State
+        applicability:
+          anyOf:
+          - type: string
+            enum:
+            - applicable
+            - not_applicable
+            - undetermined
+          - type: 'null'
+          title: Applicability
+        coverage:
+          anyOf:
+          - type: string
+            enum:
+            - covered
+            - partial
+            - missing
+            - inconsistent
+            - not_applicable
+          - type: 'null'
+          title: Coverage
+        evidence:
+          items:
+            $ref: '#/components/schemas/UpstreamComparisonEvidenceResponse'
+          type: array
+          title: Evidence
+        limitations:
+          items:
+            type: string
+          type: array
+          title: Limitations
+      additionalProperties: false
+      type: object
+      required:
+      - category
+      - state
+      - applicability
+      - coverage
+      - evidence
+      - limitations
+      title: UpstreamComparisonCategoryResponse
+    UpstreamComparisonEvidenceResponse:
+      properties:
+        side:
+          type: string
+          enum:
+          - upstream
+          - procurement
+          title: Side
+        kind:
+          type: string
+          enum:
+          - document_span
+          - absence_evidence
+          title: Kind
+        document_version_id:
+          type: string
+          format: uuid
+          title: Document Version Id
+        source_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Source Sha256
+        parser_version:
+          type: string
+          minLength: 1
+          title: Parser Version
+        parsed_sha256:
+          type: string
+          pattern: ^[a-f0-9]{64}$
+          title: Parsed Sha256
+        index_source_sha256:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Index Source Sha256
+        renderer_identity:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Renderer Identity
+        page:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Page
+        start_offset:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Start Offset
+        end_offset:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: End Offset
+        quote:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Quote
+        quote_sha256:
+          anyOf:
+          - type: string
+            pattern: ^[a-f0-9]{64}$
+          - type: 'null'
+          title: Quote Sha256
+        searched_pages:
+          items:
+            type: integer
+          type: array
+          title: Searched Pages
+        searched_sections:
+          items:
+            type: string
+          type: array
+          title: Searched Sections
+        query_terms:
+          items:
+            type: string
+          type: array
+          title: Query Terms
+        parser_coverage:
+          anyOf:
+          - type: string
+            const: complete
+          - type: 'null'
+          title: Parser Coverage
+      additionalProperties: false
+      type: object
+      required:
+      - side
+      - kind
+      - document_version_id
+      - source_sha256
+      - parser_version
+      - parsed_sha256
+      - index_source_sha256
+      - renderer_identity
+      - page
+      - start_offset
+      - end_offset
+      - quote
+      - searched_pages
+      - searched_sections
+      - query_terms
+      - parser_coverage
+      title: UpstreamComparisonEvidenceResponse
+    UpstreamComparisonPairResponse:
+      properties:
+        upstream_document_version_id:
+          type: string
+          format: uuid
+          title: Upstream Document Version Id
+        upstream_file_name:
+          type: string
+          title: Upstream File Name
+        procurement_document_version_id:
+          type: string
+          format: uuid
+          title: Procurement Document Version Id
+        procurement_file_name:
+          type: string
+          title: Procurement File Name
+        categories:
+          items:
+            $ref: '#/components/schemas/UpstreamComparisonCategoryResponse'
+          type: array
+          title: Categories
+        limitations:
+          items:
+            type: string
+          type: array
+          title: Limitations
+      additionalProperties: false
+      type: object
+      required:
+      - upstream_document_version_id
+      - upstream_file_name
+      - procurement_document_version_id
+      - procurement_file_name
+      - categories
+      - limitations
+      title: UpstreamComparisonPairResponse
+    UpstreamComparisonResponse:
+      properties:
+        run:
+          $ref: '#/components/schemas/RunResponse'
+        result:
+          anyOf:
+          - $ref: '#/components/schemas/UpstreamComparisonResultResponse'
+          - type: 'null'
+      additionalProperties: false
+      type: object
+      required:
+      - run
+      - result
+      title: UpstreamComparisonResponse
+    UpstreamComparisonResultResponse:
+      properties:
+        comparison_version:
+          type: string
+          title: Comparison Version
+        input_snapshot_id:
+          type: string
+          format: uuid
+          title: Input Snapshot Id
+        candidate_only:
+          type: boolean
+          const: true
+          title: Candidate Only
+        definition:
+          additionalProperties:
+            type: string
+          type: object
+          title: Definition
+        execution_trace:
+          $ref: '#/components/schemas/ExecutionTraceSnapshot'
+        pairs:
+          items:
+            $ref: '#/components/schemas/UpstreamComparisonPairResponse'
+          type: array
+          title: Pairs
+        limitations:
+          items:
+            type: string
+          type: array
+          title: Limitations
+      additionalProperties: false
+      type: object
+      required:
+      - comparison_version
+      - input_snapshot_id
+      - candidate_only
+      - definition
+      - execution_trace
+      - pairs
+      - limitations
+      title: UpstreamComparisonResultResponse
+    UserListResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/UserView'
+          type: array
+          title: Items
+      type: object
+      required:
+      - items
+      title: UserListResponse
+    UserRoleView:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        role_key:
+          type: string
+          title: Role Key
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - id
+      - role_key
+      - name
+      title: UserRoleView
+    UserView:
+      properties:
+        actor_id:
+          type: string
+          format: uuid
+          title: Actor Id
+        username:
+          type: string
+          title: Username
+        display_name:
+          type: string
+          title: Display Name
+        organization_id:
+          type: string
+          format: uuid
+          title: Organization Id
+        organization_name:
+          type: string
+          title: Organization Name
+        is_active:
+          type: boolean
+          title: Is Active
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        last_login_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Login At
+        roles:
+          items:
+            $ref: '#/components/schemas/UserRoleView'
+          type: array
+          title: Roles
+      type: object
+      required:
+      - actor_id
+      - username
+      - display_name
+      - organization_id
+      - organization_name
+      - is_active
+      - created_at
+      - last_login_at
+      - roles
+      title: UserView
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ProblemDetailsResponse:
+      properties:
+        type:
+          const: about:blank
+          title: Type
+          type: string
+        title:
+          title: Title
+          type: string
+        status:
+          title: Status
+          type: integer
+        code:
+          title: Code
+          type: string
+        trace_id:
+          title: Trace Id
+          type: string
+      required:
+      - type
+      - title
+      - status
+      - code
+      - trace_id
+      title: ProblemDetailsResponse
+      type: object

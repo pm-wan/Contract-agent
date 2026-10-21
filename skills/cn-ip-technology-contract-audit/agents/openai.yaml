@@ -1,0 +1,4 @@
+interface:
+  display_name: "中国知识产权与技术合同审计"
+  short_description: "面向中国大陆知识产权、技术开发与许可合同的证据化审计"
+  default_prompt: "使用 $cn-ip-technology-contract-audit 审查这份知识产权或技术合同，输出权利链与风险结果。"

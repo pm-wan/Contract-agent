@@ -1,0 +1,23 @@
+services:
+  api:
+    user: "${LOCAL_DEV_UID:?export LOCAL_DEV_UID}:${LOCAL_DEV_GID:?export LOCAL_DEV_GID}"
+    volumes:
+      - type: bind
+        source: ./.local/contract-audit/objects
+        target: /var/lib/contract-audit/objects
+        bind:
+          create_host_path: false
+
+  pageindex-worker:
+    user: "${LOCAL_DEV_UID:?export LOCAL_DEV_UID}:${LOCAL_DEV_GID:?export LOCAL_DEV_GID}"
+    volumes:
+      - type: bind
+        source: ./.local/contract-audit/objects
+        target: /var/lib/contract-audit/objects
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ./.local/contract-audit/pageindex
+        target: /var/lib/contract-audit/pageindex
+        bind:
+          create_host_path: false

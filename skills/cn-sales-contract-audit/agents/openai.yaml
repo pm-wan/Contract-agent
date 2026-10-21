@@ -1,0 +1,4 @@
+interface:
+  display_name: "中国销售合同审计"
+  short_description: "面向中国大陆销售方的软件、SaaS与服务合同全流程证据化审计"
+  default_prompt: "使用 $cn-sales-contract-audit 完整审查这份软件或服务销售合同及附件，输出可追溯的结构化结果和修订建议。"

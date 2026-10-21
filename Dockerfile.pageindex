@@ -1,0 +1,19 @@
+FROM python:3.13-slim
+
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    UV_LINK_MODE=copy \
+    UV_NO_DEV=1 \
+    UV_PROJECT_ENVIRONMENT=/opt/venv \
+    PYTHONPATH=/workspace/src \
+    PATH=/opt/venv/bin:$PATH
+
+WORKDIR /workspace
+COPY --from=ghcr.io/astral-sh/uv:0.11.19 /uv /uvx /bin/
+
+COPY pyproject.toml uv.lock README.md ./
+COPY src ./src
+
+RUN uv sync --frozen --no-dev --no-install-project --extra database --extra pageindex --extra telemetry --no-install-package PyPDF2
+
+CMD ["python", "-m", "contract_app.documents.index_worker"]

@@ -1,0 +1,82 @@
+name: M0 checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:18-alpine@sha256:77f585114c32fbca283dc835b0596f4e52b51b4c6662d7810b2f4084f60a1873
+        env:
+          POSTGRES_DB: contract_audit
+          POSTGRES_USER: contract_admin
+          POSTGRES_PASSWORD: local-dev-only
+        options: >-
+          --health-cmd "pg_isready -U contract_admin -d contract_audit"
+          --health-interval 3s
+          --health-timeout 3s
+          --health-retries 20
+    env:
+      CI_DATABASE_ADMIN_URL: postgresql://contract_admin:local-dev-only@postgres:5432/contract_audit
+      DATABASE_URL: postgresql://contract_admin:local-dev-only@postgres:5432/contract_audit
+      TEST_DATABASE_URL: postgresql://contract_runtime:local-dev-only@postgres:5432/contract_audit
+      TEST_ADMIN_DATABASE_URL: postgresql://contract_admin:local-dev-only@postgres:5432/contract_audit
+      CI_DATABASE_RUNTIME_PASSWORD: local-dev-only
+    steps:
+      - uses: actions/checkout@v7
+      - uses: astral-sh/setup-uv@bec219d24cd3e171d82865faccec33120bb574f4 # v10.1.0
+        with:
+          enable-cache: true
+      - name: Install locked backend dependencies
+        run: >-
+          uv sync --frozen --extra ai --extra pageindex --extra database
+          --extra storage --extra telemetry --no-install-package PyPDF2
+      - name: Verify PageIndex uses pypdf without installing legacy PyPDF2
+        run: uv run --frozen python scripts/check_pageindex_reader_install.py
+      - name: Verify checked-in dependency license inventory matches this environment
+        run: >-
+          uv run --frozen python scripts/export_license_inventory.py --check
+          docs/development/00-project/依赖许可证元数据清单.json
+      - name: Audit runtime dependencies excluding AI and PageIndex
+        run: >-
+          uv --preview-features audit-command audit --locked --no-dev
+          --no-extra ai --no-extra pageindex
+      - name: Verify checked-in OpenAPI matches FastAPI
+        run: uv run --frozen python scripts/export_openapi.py --check
+      - name: Static checks
+        run: |
+          uv run --frozen ruff check src tests migrations infra/postgres scripts
+          uv run --frozen ruff format --check src tests migrations infra/postgres scripts
+          uv run --frozen mypy src/contract_app
+      - name: Prepare disposable database and migrate
+        run: |
+          uv run --frozen python infra/postgres/ci_bootstrap.py
+          uv run --frozen alembic upgrade head
+      - name: Backend tests, including tenant-isolated database tests
+        run: uv run --frozen pytest -q -rs
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/setup@v3
+        with:
+          version: 11.5.0
+          runtime: node@24
+          working-directory: web
+          require-lockfile: true
+          cache: true
+      - name: Lint, types, tests, build
+        working-directory: web
+        run: |
+          pnpm api:check
+          pnpm lint
+          pnpm typecheck
+          pnpm test
+          pnpm build
