@@ -8,7 +8,7 @@ type ComparisonResult = NonNullable<UpstreamComparisonResults["result"]>;
 type ComparisonEvidence = ComparisonResult["pairs"][number]["categories"][number]["evidence"][number];
 const markdownSpecialCharacters = new Set(["\\", "`", "*", "_", "{", "}", "[", "]", "(", ")", "#", "+", "-", ".", "!", "|", ">"]);
 
-const categoryTitles: Record<string, string> = {
+export const categoryTitles: Record<string, string> = {
   work_scope_deliverables: "工作范围与交付物",
   delivery_schedule: "交付计划",
   acceptance_remediation: "验收与整改",
@@ -25,7 +25,7 @@ const categoryTitles: Record<string, string> = {
   documents_reports_audit: "文件、报告与审计",
 };
 
-const coverageLabels: Record<string, string> = {
+export const coverageLabels: Record<string, string> = {
   covered: "已找到对应约定",
   partial: "部分对应",
   missing: "候选未覆盖",
@@ -33,7 +33,7 @@ const coverageLabels: Record<string, string> = {
   not_applicable: "候选不适用",
 };
 
-const stateLabels: Record<string, string> = {
+export const stateLabels: Record<string, string> = {
   candidate: "候选已形成，待复核",
   needs_material: "需要补充材料",
   undetermined: "暂无法判定",
@@ -56,7 +56,7 @@ function markdownSafeInline(value: string): string {
     .join("");
 }
 
-function reportMarkdown(response: UpstreamComparisonResults): string {
+export function reportMarkdown(response: UpstreamComparisonResults): string {
   const result = response.result;
   if (!result) return "";
   const lines = [
@@ -130,7 +130,7 @@ function downloadReport(response: UpstreamComparisonResults) {
   URL.revokeObjectURL(url);
 }
 
-function EvidenceBlock({ evidence }: { evidence: ComparisonEvidence }) {
+export function EvidenceBlock({ evidence }: { evidence: ComparisonEvidence }) {
   if (evidence.kind === "absence_evidence") {
     return <div className="comparison-evidence">
       <Text strong>全文检索范围</Text>
@@ -195,6 +195,8 @@ export function UpstreamComparisonResultsPage() {
   if (!response) return <div className="route-loading" aria-live="polite"><Spin size="large" description="正在读取上下游比对状态…" /></div>;
 
   const { run, result } = response;
+  const hasVerifiedCategory = (pair: NonNullable<typeof result>["pairs"][number]) => pair.categories.some((item) => item.evidence.length > 0 || (item.state === "candidate" && item.applicability === "not_applicable"));
+  const comparisonFailed = !!result?.pairs.length && !result.pairs.some(hasVerifiedCategory);
   const caseLink = run.case_id ? `/cases/${run.case_id}?view=results` : "/cases";
   return <>
     <nav aria-label="页面层级"><Breadcrumb items={[
@@ -203,7 +205,7 @@ export function UpstreamComparisonResultsPage() {
       { title: "上下游比对详情" },
     ]} /></nav>
     <div className="case-view-heading">
-      <Space align="center"><Title level={2}>上下游合同比对</Title><Tag color={run.status === "completed" ? "success" : run.status === "failed" ? "error" : "processing"}>{statusLabels[run.status]}</Tag></Space>
+      <Space align="center"><Title level={2}>上下游合同比对</Title><Tag color={comparisonFailed ? "error" : run.status === "completed" ? "success" : run.status === "failed" ? "error" : "processing"}>{comparisonFailed ? "比对失败" : statusLabels[run.status]}</Tag></Space>
       <Paragraph type="secondary">运行编号：<Text code>{run.run_id}</Text></Paragraph>
     </div>
     {error && <Alert type="warning" showIcon title="状态刷新失败" description="以下仍显示最近一次成功读取的数据。" action={<Button onClick={() => setRetryKey((value) => value + 1)}>重试</Button>} />}
@@ -226,6 +228,7 @@ export function UpstreamComparisonResultsPage() {
     {run.status === "failed" && !result && <Result status="error" title="比对任务失败" subTitle="没有生成候选结果。请检查任务历史和服务配置，再重新冻结并发起比对。" />}
     {run.status !== "completed" && run.status !== "failed" && !result && <Card><Spin description="任务排队或执行中，结果生成后本页会自动刷新。" /></Card>}
     {run.status === "completed" && !result && <Result status="warning" title="本次没有可展示结果" subTitle="任务已结束但没有保存比对结果；请查看运行记录并重试。" />}
+    {comparisonFailed && <Alert type="error" showIcon title="本次未形成有效比对结果" description="模型输出未通过校验，不能据此认定合同没有风险或缺少条款。请查看具体失败原因后重新发起比对。" />}
     {result && <>
       <div className="comparison-report-actions"><Button type="primary" onClick={() => downloadReport(response)}>下载 Markdown 比对报告</Button></div>
       {result.pairs.length === 0 ? <Empty description="冻结快照没有可比对的合同组" /> : result.pairs.map((pair) => <Card
@@ -237,7 +240,8 @@ export function UpstreamComparisonResultsPage() {
           { key: "upstream", label: "项目客户合同", children: <>{pair.upstream_file_name}<br /><Text type="secondary" code>{pair.upstream_document_version_id}</Text></> },
           { key: "procurement", label: "采购合同", children: <>{pair.procurement_file_name}<br /><Text type="secondary" code>{pair.procurement_document_version_id}</Text></> },
         ]} />
-        <Collapse
+        {!hasVerifiedCategory(pair) && <Alert type="error" showIcon title="本组比对失败" description="没有形成通过校验的条款结论；下方限制列出具体失败原因。" />}
+        {hasVerifiedCategory(pair) && <Collapse
           className="comparison-categories"
           items={pair.categories.map((category) => ({
             key: category.category,
@@ -258,7 +262,7 @@ export function UpstreamComparisonResultsPage() {
               {category.limitations.length > 0 && <Alert className="comparison-limitations" type="info" showIcon title="复核限制" description={<ul>{category.limitations.map((item) => <li key={item}>{item}</li>)}</ul>} />}
             </>,
           }))}
-        />
+        />}
         {pair.limitations.length > 0 && <Alert className="comparison-limitations" type="warning" showIcon title="本组限制" description={<ul>{pair.limitations.map((item) => <li key={item}>{item}</li>)}</ul>} />}
       </Card>)}
       <Card title="整体限制" className="comparison-limitations-card">

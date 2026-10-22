@@ -227,62 +227,54 @@ class UpstreamComparisonProcessor:
                     + "\n\n"
                     + text_bytes.decode("utf-8")
                 )
-                raw_response = asyncio.run(
-                    AgentCallBoundary(timeout_seconds=self.timeout_seconds, max_tool_calls=1).run(
-                        Agent(
-                            name="upstream-obligation-candidate-comparator",
-                            system_prompt=SYSTEM_PROMPT,
-                            model=self.model,
-                            middlewares=[ExecutionTraceMiddleware(execution_trace)],
-                            react_config=ReActConfig(max_iters=1),
-                        ),
-                        UserMsg(name="upstream-comparison-worker", content=input_text),
-                        cancellation=worker_context.cancelled,
-                    )
-                )
-                response_text = "\n".join(
-                    block.text for block in raw_response.content if isinstance(block, AgentTextBlock)
-                )
-                if len(response_text.encode("utf-8")) > MAX_MODEL_OUTPUT_BYTES:
-                    raise ValueError("upstream_comparison_output_too_large")
-                raw_output = json.loads(response_text)
-                if not isinstance(raw_output, dict) or not isinstance(raw_output.get("categories"), list):
-                    raise ValueError("upstream_comparison_output_invalid")
-                traces = self._search_traces(
-                    categories=raw_output["categories"],
-                    procurement_id=context.main.document_version_id,
-                    procurement_pages=main_document.pages,
-                )
-                self._inject_absence_scopes(raw_output, traces)
-                self._downgrade_missing_with_keyword_hits(
-                    raw_output, procurement_pages=main_document.pages
-                )
-                candidate_output = ObligationCandidateOutput.model_validate(raw_output)
-                bound = bind_obligation_candidate_output(
-                    candidate_output,
-                    upstream=ObligationEvidenceSource(
-                        source.document_version_id,
-                        source.source_sha256,
-                        source.parsed_sha256,
-                        upstream,
-                    ),
-                    procurement=ObligationEvidenceSource(
-                        context.main.document_version_id,
-                        context.main.source_sha256,
-                        context.main.parsed_sha256,
-                        main_document,
-                    ),
-                    search_traces=traces,
-                )
-                pair["categories"] = self._serialize_categories(bound.categories)
-                pair["limitations"] = list(bound.limitations)
-            except (ValidationError, ValueError, TypeError, KeyError, json.JSONDecodeError):
-                pair_limitations.append(
-                    "模型输出未通过 JSON、类别或原文引文校验；本组候选保留为待核实状态。"
-                )
-                pair["categories"] = self._unresolved_categories(
-                    "undetermined", "模型输出或原文证据未通过服务端校验。"
-                )
+                accepted: dict[str, dict[str, Any]] = {}
+                failures: list[str] = []
+                for retry in range(2):
+                    if retry:
+                        input_text += "\n\n上次校验失败，请修正以下类别，只返回这些类别并逐字引用原文：" + "; ".join(failures)
+                    try:
+                        raw_response = asyncio.run(
+                            AgentCallBoundary(timeout_seconds=self.timeout_seconds, max_tool_calls=1).run(
+                                Agent(
+                                    name="upstream-obligation-candidate-comparator",
+                                    system_prompt=SYSTEM_PROMPT,
+                                    model=self.model,
+                                    middlewares=[ExecutionTraceMiddleware(execution_trace)],
+                                    react_config=ReActConfig(max_iters=1),
+                                ),
+                                UserMsg(name="upstream-comparison-worker", content=input_text),
+                                cancellation=worker_context.cancelled,
+                            )
+                        )
+                        response_text = "\n".join(
+                            block.text for block in raw_response.content if isinstance(block, AgentTextBlock)
+                        )
+
+                        output = self._decode_comparison_output(response_text)
+                        envelope = ObligationCandidateOutput.model_validate({**output, "categories": []})
+                        for limitation in envelope.limitations:
+                            if limitation not in pair_limitations:
+                                pair_limitations.append(limitation)
+                        checked, failures = self._validate_pair_categories(
+                            output, source, context.main, upstream, main_document
+                        )
+                        for item in checked:
+                            key = item["category"]
+                            if key not in accepted or not accepted[key].get("evidence"):
+                                accepted[key] = item
+                        failures = [issue for issue in failures if issue.split(":", 1)[0] not in accepted]
+                        if not failures:
+                            break
+                    except (ValidationError, ValueError, TypeError, KeyError) as exc:
+                        failures = ["response:" + self._validation_reason(exc)]
+                pair["categories"] = [
+                    accepted.get(item["category"], item)
+                    for item in self._unresolved_categories("undetermined", "该类别校验失败或未返回，未形成可靠结论。")
+                ]
+                pair_limitations.extend("校验未通过：" + issue for issue in failures)
+            except (ValidationError, ValueError, TypeError, KeyError) as exc:
+                pair_limitations.append("比对输出校验失败：" + self._validation_reason(exc))
+            pair["limitations"] = pair_limitations
             pairs.append(pair)
         return {
             "comparison_version": context.definition["version"],
@@ -301,6 +293,69 @@ class UpstreamComparisonProcessor:
                 "撤回任一材料授权后，结果接口将停止返回该次比对内容。",
             ],
         }
+
+    @staticmethod
+    def _validation_reason(exc: Exception) -> str:
+        # Expose field locations and error codes, never raw model input or contract text.
+        if isinstance(exc, ValidationError):
+            return "; ".join(
+                ".".join(str(part) for part in error["loc"]) + ":" + error["type"]
+                for error in exc.errors(include_input=False, include_context=False)[:8]
+            )
+        if isinstance(exc, json.JSONDecodeError):
+            return "invalid_json"
+        reason = str(exc)
+        return reason if reason.startswith(("obligation_", "upstream_comparison_", "comparison_", "duplicate_")) else type(exc).__name__
+
+    @staticmethod
+    def _decode_comparison_output(text: str) -> dict[str, Any]:
+        if len(text.encode("utf-8")) > MAX_MODEL_OUTPUT_BYTES:
+            raise ValueError("upstream_comparison_output_too_large")
+        text = text.strip()
+        if text.startswith("```") and text.endswith("```"):
+            text = text.split("\n", 1)[1].rsplit("```", 1)[0].strip()
+        output = json.loads(text)
+        if not isinstance(output, dict) or not isinstance(output.get("categories"), list):
+            raise ValueError("upstream_comparison_output_invalid")
+        return output
+
+    def _validate_pair_categories(
+        self, output: dict[str, Any], source: _Source, main: _Source,
+        upstream: ParsedDocument, procurement: ParsedDocument,
+    ) -> tuple[list[dict[str, Any]], list[str]]:
+        if len(output["categories"]) > len(OBLIGATION_CATEGORY_ORDER):
+            raise ValueError("upstream_comparison_too_many_categories")
+        grouped: dict[str, list[dict[str, Any]]] = {}
+        for raw in output["categories"]:
+            if not isinstance(raw, dict):
+                continue
+            key = raw.get("category")
+            if isinstance(key, str):
+                grouped.setdefault(key, []).append(raw)
+        accepted = []
+        failures = []
+        for category in OBLIGATION_CATEGORY_ORDER:
+            key = category.value
+            entries = grouped.get(key, [])
+            if len(entries) != 1:
+                failures.append(key + ":missing_or_duplicate_category")
+                continue
+            try:
+                single = {"categories": entries, "limitations": []}
+                traces = self._search_traces(categories=entries, procurement_id=main.document_version_id, procurement_pages=procurement.pages)
+                self._inject_absence_scopes(single, traces)
+                self._downgrade_missing_with_keyword_hits(single, procurement_pages=procurement.pages)
+                validated = ObligationCandidateOutput.model_validate(single)
+                bound = bind_obligation_candidate_output(
+                    validated,
+                    upstream=ObligationEvidenceSource(source.document_version_id, source.source_sha256, source.parsed_sha256, upstream),
+                    procurement=ObligationEvidenceSource(main.document_version_id, main.source_sha256, main.parsed_sha256, procurement),
+                    search_traces=traces,
+                )
+                accepted.extend(item for item in self._serialize_categories(bound.categories) if item["category"] == key)
+            except (ValidationError, ValueError, TypeError, KeyError) as exc:
+                failures.append(key + ":" + self._validation_reason(exc))
+        return accepted, failures
 
     @staticmethod
     def _pair_text(

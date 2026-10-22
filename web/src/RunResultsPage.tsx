@@ -38,6 +38,7 @@ import {
   type FactConfirmationItem,
   type HumanTask,
 } from "./api";
+import { ReportComparisonSection, loadReportComparison, comparisonReportMarkdown, type ReportComparison } from "./ReportComparisonSection";
 import { blobSha256 } from "./blobSha256";
 import { createUuid } from "./browserUuid";
 import { ResearchResults, type ResearchReview } from "./ResearchResults";
@@ -404,6 +405,23 @@ export function RunResultsPage() {
   const navigate = useNavigate();
   const [run, setRun] = useState<AuditRun | null>(null);
   const [data, setData] = useState<RunResults | null>(null);
+  const [reportComparison, setReportComparison] = useState<ReportComparison | null>(null);
+  useEffect(() => {
+    const controller = new AbortController();
+    setReportComparison(null);
+    let timer: number | undefined;
+    const refresh = async () => {
+      if (!data) return;
+      try {
+        const value = await loadReportComparison(data, controller.signal);
+        if (controller.signal.aborted) return;
+        setReportComparison(value);
+        if (value.notice.includes("正在执行")) timer = window.setTimeout(() => void refresh(), 5000);
+      } catch { if (!controller.signal.aborted) setReportComparison({response:null, notice:"上下游比对结果暂时无法读取，报告尚未包含该部分。"}); }
+    };
+    void refresh();
+    return () => { controller.abort(); window.clearTimeout(timer); };
+  }, [data]);
   const [error, setError] = useState<ApiError | null>(null);
   const [loading, setLoading] = useState(true);
   const [retryCount, setRetryCount] = useState(0);
@@ -757,7 +775,9 @@ export function RunResultsPage() {
         setReportError("运行状态已变化，请刷新后再生成摘要。");
         return;
       }
-      const markdown = buildRunReportMarkdown(current);
+      const comparison = await loadReportComparison(current);
+      const markdown = buildRunReportMarkdown(current) + comparisonReportMarkdown(comparison);
+      if (new TextEncoder().encode(markdown).byteLength > 4 * 1024 * 1024) throw new RunReportTooLarge();
       const blob = new Blob([markdown], { type: "text/markdown;charset=utf-8" });
       const urlApi = URL;
       const objectUrl = urlApi.createObjectURL(blob);
@@ -846,6 +866,8 @@ export function RunResultsPage() {
         const evidence = item.evidence.find((source) => source.document_version_id === quote.document_version_id && source.page === quote.page && source.quote === quote.quote);
         if (evidence) openEvidence(evidence);
       }} />)}
+
+      {data && <ReportComparisonSection value={reportComparison} />}
 
       {!error && run && (status === "queued" || status === "running") && <Card className={`run-progress-card run-progress-card-${status}${pollingTimedOut ? " run-progress-card-paused" : ""}`}>
         <div className="run-progress-heading">

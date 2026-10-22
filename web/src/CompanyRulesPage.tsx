@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { Alert, Button, Card, Drawer, Empty, Form, Input, Modal, Space, Table, Tabs, Tag, Typography, message } from "antd";
 import { useAuth } from "./AuthContext";
 import { SectionHeading } from "./shared-ui";
-import { getKnowledgeCatalog, getKnowledgeDocument, getReviewSamples, sampleFile, setKnowledgeStatus, uploadKnowledgeDocument, type KnowledgeCatalog, type KnowledgeDocument } from "./knowledgeApi";
+import { getKnowledgeCatalog, getKnowledgeDocument, setKnowledgeStatus, uploadKnowledgeDocument, type KnowledgeCatalog, type KnowledgeDocument } from "./knowledgeApi";
 
 const labels = { draft: "待确认", published: "审核可用", withdrawn: "已停用" };
 type Values = { title: string; kind: "legal" | "company"; issuer: string; scope: string; source_url: string; effective_from?: string; effective_until?: string };
@@ -45,20 +45,6 @@ export function CompanyRulesPage() {
     catch (reason) { toast.error(reason instanceof Error ? reason.message : "操作失败。"); }
     finally { setBusy(false); }
   };
-  const addSamples = async () => {
-    setBusy(true);
-    try {
-      const samples = await getReviewSamples();
-      for (const sample of samples.sources) {
-        if (catalog?.items.some((item) => item.title === sample.title)) continue;
-        const data = new FormData(); data.append("file", await sampleFile(`sources/${sample.key}`, `${sample.key}.txt`));
-        Object.entries(sample).forEach(([key, value]) => { if (key !== "key" && value) data.append(key, value); });
-        await uploadKnowledgeDocument(data);
-      }
-      await refresh(); toast.success("已添加法规全文及公司测试制度，请预览确认后启用。");
-    } catch (reason) { toast.error(reason instanceof Error ? reason.message : "添加失败。"); await refresh(); }
-    finally { setBusy(false); }
-  };
   const showSource = async (id: string) => {
     try { setPreview(await getKnowledgeDocument(id)); }
     catch (reason) { toast.error(reason instanceof Error ? reason.message : "原文读取失败。"); }
@@ -70,7 +56,7 @@ export function CompanyRulesPage() {
     <Card className="company-rules-alert"><Space wrap>
       <Tag color="blue">本地法规：{catalog?.items.filter((item) => item.kind === "legal" && item.status === "published").length ?? 0} 份可用</Tag>
       <Tag color={catalog?.online_legal_search.configured ? "green" : "gold"}>联网法律查询：{catalog?.online_legal_search.configured ? `已接入 ${catalog.online_legal_search.provider === "deepseek" ? "DeepSeek" : catalog.online_legal_search.provider}` : "待配置检索服务"}</Tag>
-      {canManage && <Button loading={busy} onClick={() => void addSamples()}>添加法规全文与测试制度</Button>}</Space>
+    </Space>
       {!catalog?.online_legal_search.configured && <Typography.Paragraph type="secondary" style={{ marginTop: 12, marginBottom: 0 }}>联网查询尚未接入当前模型服务。检索失败或缺少依据会记录为待查证。</Typography.Paragraph>}
     </Card>
     <Tabs activeKey={kind} onChange={(key) => setKind(key as "legal" | "company")} items={[{ key: "company", label: "公司制度文件" }, { key: "legal", label: "法律法规全文" }]} />
